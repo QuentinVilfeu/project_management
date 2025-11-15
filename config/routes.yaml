@@ -3,3 +3,15 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+    prefix: /{_locale}/
+    defaults:
+        _locale: 'fr'
+    requirements:
+        _locale: fr|en
+
+no_locale:
+    resource:
+        path: ../src/Controller/NoLocale/
+        namespace: App\Controller\NoLocale
+    type: attribute
+    prefix: ''

@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "lib": ["ES2019", "DOM"],
+        "target": "ES6",
+        "module": "nodenext",
+        "resolveJsonModule": true
+    },
+    "exclude": [
+        "node_modules",
+        "vendor",
+        "dist"
+    ]
+}

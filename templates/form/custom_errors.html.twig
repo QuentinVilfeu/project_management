@@ -1,0 +1,10 @@
+{% block form_errors %}
+    {% if errors|length > 0 %}
+        <ul class="list-unstyled mb-0 text-danger">
+            {# Itération sur toutes les erreurs du champ ou du formulaire #}
+            {% for error in errors %}
+                <li>{{ error.message|trans }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock form_errors %}

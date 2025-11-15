@@ -1,0 +1,9 @@
+{% extends '_partials/modal/_template_modal.html.twig' %}
+
+{% block idModal %}newUserModal{% endblock %}
+
+{% block idModalTitle %}newUserModalTitle{% endblock %}
+
+{% block modalTitle %}{% trans %}Add new user{% endtrans %}{% endblock %}
+
+{% block modalBody %}<turbo-frame id="newUserModalFrame"></turbo-frame>{% endblock %}

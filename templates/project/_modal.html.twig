@@ -1,0 +1,9 @@
+{% extends '_partials/modal/_template_modal.html.twig' %}
+
+{% block idModal %}newProjectModal{% endblock %}
+
+{% block idModalTitle %}newProjectModalTitle{% endblock %}
+
+{% block modalTitle %}{% trans %}Add new project{% endtrans %}{% endblock %}
+
+{% block modalBody %}<turbo-frame id="newProjectModalFrame"></turbo-frame>{% endblock %}

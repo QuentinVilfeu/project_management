@@ -1,0 +1,9 @@
+# Validator translations EN
+"There is already an account with this email" : There is already an account with this email
+"Firstname should not be null": Firstname should not be null
+"Lastname should not be null": Lastname should not be null
+"The title must be at least {{ limit }} characters long": "The title must be at least {{ limit }} characters long"
+"The description must be at least {{ limit }} characters long": "The description must be at least {{ limit }} characters long"
+"A project with this title already exists": A project with this title already exists
+"Title should not be null": Title should not be null
+"Description should not be null": Description should not be null

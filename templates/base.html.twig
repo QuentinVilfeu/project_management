@@ -1,17 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        
+        {# Bootstrap #}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+        {# Bootstrap Table #}
+        <link rel="stylesheet" href="{{ asset('vendor/bootstrap-table-master/dist/bootstrap-table.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/bootstrap-table-master/dist/extensions/filter-control/bootstrap-table-filter-control.min.css') }}">
+
         {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
         {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}
+
+        {% block modals %}{% endblock %}
+
+        {# Bootstrap #}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+        {# Bootstrap Table #}
+        <script src="{{ asset('vendor/bootstrap-table-master/dist/bootstrap-table.min.js') }}"></script>
+        <script src="{{ asset('vendor/bootstrap-table-master/dist/bootstrap-table-locale-all.min.js') }}"></script>
+        <script src="{{ asset('vendor/bootstrap-table-master/dist/extensions/filter-control/bootstrap-table-filter-control.min.js') }}"></script>
+        <script src="{{ asset('vendor/bootstrap-table-master/dist/extensions/multiple-sort/bootstrap-table-multiple-sort.min.js') }}"></script>
+        <script src="{{ asset('vendor/bootstrap-table-master/dist/extensions/i18n-enhance/bootstrap-table-i18n-enhance.js') }}"></script>
+    
+        {# Translation for Bootstrap Table #}
+        <script>
+            (function() {
+                // Récupère la locale depuis l'URL/Twig
+                const locale = '{{ app.request.locale|default("en") }}'.replace('_', '-');
+
+                // Si jQuery ou bootstrapTable non disponibles, on laisse tomber — l'initialisation des tables pourra explicitement définir la locale
+                if (typeof window.jQuery === 'undefined' || !jQuery.fn || !jQuery.fn.bootstrapTable) {
+                    // eslint-disable-next-line no-console
+                    console.warn('bootstrap-table or jQuery not available yet — locale will be applied when tables initialize.');
+                    return;
+                }
+
+                const locales = jQuery.fn.bootstrapTable.locales || {};
+
+                const applyLocale = (key) => {
+                    if (!key) return false;
+                    if (locales[key]) {
+                        // Merge les traductions locales dans les defaults
+                        jQuery.fn.bootstrapTable.defaults.locale = key;
+                        return true;
+                    }
+                    return false;
+                };
+                // Essaie la locale complète puis la partie langue (ex: fr-FR puis fr)
+                if (!applyLocale(locale) && !applyLocale(locale.split('-')[0])) {
+                    // Fallbacks courant
+                    applyLocale('fr') || applyLocale('en-US') || applyLocale('en');
+                }
+            })();
+        </script>
     </body>
 </html>

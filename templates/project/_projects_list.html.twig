@@ -1,0 +1,38 @@
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>{% trans %}Project list{% endtrans %}</h2>
+        <!-- Button triggers modal -->
+        <button
+            {{ stimulus_target('modal', 'openModalButton') }}
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#newProjectModal"
+            data-route="app_project_new">
+            {% trans %}Add Project{% endtrans %}
+        </button>
+    </div>
+
+    <table id="projectList"
+        class="table table-bordered table-hover" 
+        data-toggle="table"
+        data-pagination="true"
+        data-search="true"
+        data-show-search-clear-button="true"
+        data-filter-control="true">
+        <thead>
+            <tr>
+                <th data-sortable="true" data-field="id">Id</th>
+                <th data-sortable="true" data-filter-control="select" data-field="firstname">{% trans %}Title{% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+                <tr>
+                    <td>{{ project.id }}</td>
+                    <td>{{ project.title }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
