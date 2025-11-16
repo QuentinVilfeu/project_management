@@ -23,3 +23,9 @@ Projects: Projets
 Users: Utilisateurs
 User: Utilisateur
 Project: Projet
+Edit project: Éditer le projet
+Delete project: Supprimer le projet
+Confirm deletion: Êtes-vous sûr de vouloir supprimer %name% ?
+project.added: Projet %title% ajouté avec succès
+project.edited: Projet %title% mis à jour avec succès
+project.deleted: Projet %title% supprimé avec succès

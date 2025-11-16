@@ -9,10 +9,10 @@
             {% include 'project/_projects_list.html.twig' with {projects: projects} %}
         </div>
     </div>
-
-
 {% endblock %}
 
 {% block modals %}
     {% include "project/_modal.html.twig" %}
+    {% include "project/_modal_edit.html.twig" %}
+    {% include "project/_modal_delete.html.twig" %}
 {% endblock %}

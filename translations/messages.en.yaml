@@ -23,3 +23,18 @@ Projects: Projects
 Users: Users
 User: User
 Project: Project
+Edit: Edit
+Delete: Delete
+Edit User: Edit User
+Delete User: Delete User
+Edit Project: Edit Project
+Delete Project: Delete Project
+Confirm deletion: Are you sure you want to delete %name% ?
+Delete confirmation: Confirm deletion
+modal.close: Close
+modal.save: Save changes
+Edit project: Edit project
+Delete project: Delete project
+project.added: 'Project "%title%" has been added.'
+project.edited: 'Project "%title%" has been updated.'
+project.deleted: 'Project "%title%" has been deleted.'

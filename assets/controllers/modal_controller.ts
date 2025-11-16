@@ -10,16 +10,27 @@ export default class extends Controller<HTMLElement> {
     connect() {
         this.openModalButtonTargets.forEach((button) => {
             button.addEventListener("click", () => {
-                const route = button.getAttribute("data-route");
-                if (route) {
-                    this.fetchController(route);
-                }
+                this.startAction(button);
             });
         });
     }
 
-    fetchController(route: string) {
-        const url = speRouting.generate(route);
+    startAction(button: HTMLButtonElement) {
+        const route = button.getAttribute("data-route");
+        const parameters = button.getAttribute("data-parameters");
+
+        if (route) {
+            this.fetchController(route, parameters ? JSON.parse(parameters) : {});
+        }
+    }
+
+    clickActionTable(event: Event) {
+        this.startAction(event.currentTarget as HTMLButtonElement);
+    }
+
+    fetchController(route: string, parameters: Record<string, any>) {
+        const url = speRouting.generate(route, parameters);
+        console.log(url);
         
         fetch(url, {
             headers: {
