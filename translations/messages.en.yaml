@@ -38,3 +38,6 @@ Delete project: Delete project
 project.added: 'Project "%title%" has been added.'
 project.edited: 'Project "%title%" has been updated.'
 project.deleted: 'Project "%title%" has been deleted.'
+user.added: 'User %email% has been added.'
+user.edited: 'User %email% has been updated.'
+user.deleted: 'User %email% has been deleted.'

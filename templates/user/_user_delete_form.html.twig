@@ -1,6 +1,6 @@
-<form method="post" action="{{ path('app_project_delete', {'id': project.id}) }}">
+<form method="post" action="{{ path('app_user_delete', {'id': user.id}) }}">
     <div class="modal-body">
-        <p>{{ 'Confirm deletion'|trans({'%name%': project.title}) }}</p>
+        <p>{{ 'Confirm deletion'|trans({'%name%': user.firstname}) }}</p>
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-danger">{{ 'Delete'|trans }}</button>

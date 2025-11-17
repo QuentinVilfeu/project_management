@@ -11,11 +11,12 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Service\Utils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/user')]
 final class UserController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $em, private Utils $utils)
+    public function __construct(private EntityManagerInterface $em, private Utils $utils, private TranslatorInterface $translator)
     {
     }
 
@@ -57,6 +58,43 @@ final class UserController extends AbstractController
         // Render the form in a Turbo Stream response
         $stream = $this->renderView('user/user_new.turbo_stream.html.twig', [
             "form" => $form
+        ]);
+
+        return $this->utils->turboStreamResponse($stream);
+    }
+
+    // modal: edit user (returns modal fragment with prefilled form)
+    #[Route('/user/{id}/modal-edit', name: 'app_user_edit', methods: ['GET', 'POST'], options: ['expose' => true])]
+    public function modalEdit(Request $request, User $user): Response
+    {
+        // Create the Form
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        // Render the form in a Turbo Stream response
+        $stream = $this->renderView('user/user_edit.turbo_stream.html.twig', [
+            "form" => $form
+        ]);
+
+        return $this->utils->turboStreamResponse($stream);
+    }
+
+    // modal: confirm delete user (returns modal fragment)
+    #[Route('/delete/{id}', name: 'app_user_delete', methods: ['GET', 'POST'], options: ['expose' => true])]
+    public function modalDelete(Request $request, User $user): Response
+    {
+        if ($request->isMethod('POST')) {
+            $this->em->remove($user);
+            $this->em->flush();
+
+            $this->addFlash('success', $this->translator->trans('user.deleted', ['%email%' => $user->getEmail()]));
+            // Return a Turbo Stream response to update the user list
+            return $this->utils->turboStreamResponse('app_user', true);
+        }
+
+        // Render the form in a Turbo Stream response
+        $stream = $this->renderView('user/user_delete.turbo_stream.html.twig', [
+            "user" => $user,
         ]);
 
         return $this->utils->turboStreamResponse($stream);

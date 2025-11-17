@@ -35,6 +35,24 @@
                     <td>{{ user.firstname }}</td>
                     <td>{{ user.lastname }}</td>
                     <td>{{ user.email }}</td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-outline-primary" data-controller="modal" data-action="click->modal#open" data-url="{{ path('app_user_edit', {'id': user.id}) }}" title="{{ 'Edit User'|trans }}">
+                            <!-- pencil icon -->
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <a id="delete_user_{{ user.id }}"
+                        class="btn btn-sm btn-outline-danger"
+                        title="{{ 'Delete User'|trans }}"
+                        {{ stimulus_target('modal', 'openModalButton') }}
+                        {{ stimulus_action('modal', 'clickActionTable') }}
+                        data-bs-toggle="modal"
+                        data-bs-target="#deleteUserModal"
+                        data-route="app_user_delete"
+                        data-parameters="{{ {'id': user.id}|json_encode|e('html_attr') }}">
+                            <!-- trash icon -->
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

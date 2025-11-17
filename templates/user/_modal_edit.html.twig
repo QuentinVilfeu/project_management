@@ -1,0 +1,10 @@
+{# new file: modal edit user #}
+{% extends '_partials/modal/_template_modal.html.twig' %}
+
+{% block idModal %}editUserModal{% endblock %}
+
+{% block idModalTitle %}editUserModalTitle{% endblock %}
+
+{% block modalTitle %}{% trans %}Edit user{% endtrans %}{% endblock %}
+
+{% block modalBody %}<turbo-frame id="editUserModalFrame"></turbo-frame>{% endblock %}
