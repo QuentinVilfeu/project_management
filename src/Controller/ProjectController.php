@@ -7,9 +7,11 @@ use App\Form\ProjectType;
 use App\Service\Utils;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/project')]
@@ -20,13 +22,21 @@ final class ProjectController extends AbstractController
     }
 
     #[Route('/', name: 'app_project', options: ['expose' => true])]
-    public function index(): Response
+    public function index(SerializerInterface $serializer): Response
     {
         $projects = $this->em->getRepository(Project::class)->findAll();
 
         return $this->render('project/index.html.twig', [
-            'projects' => $projects,
+            'projects' => $projects
         ]);
+    }
+
+    #[Route('/get/projects', name: 'app_project_get_data', methods: ['GET'], options: ['expose' => true])]
+    public function getProjects(): JsonResponse
+    {
+        $projects = $this->em->getRepository(Project::class)->findAll();
+
+        return $this->json($projects, 200);
     }
 
     #[Route('/new', name: 'app_project_new', methods: ['GET', 'POST'], options: ['expose' => true])]
