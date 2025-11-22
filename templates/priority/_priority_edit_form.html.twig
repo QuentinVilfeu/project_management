@@ -1,0 +1,25 @@
+{% form_theme form 'form/custom_errors.html.twig' %}
+
+{{ form_start(form, {'action': path('app_priority_edit', {id: priority.id})}) }}
+    {{ form_widget(form._token) }}
+    <div class="mb-3">
+        {{ form_label(form.title) }}
+        {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.title) }}
+    </div>
+    <div class="mb-3">
+        {{ form_label(form.color) }}
+        {{ form_widget(form.color, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.color) }}
+    </div>
+    <div class="mb-3">
+        {{ form_label(form.weight) }}
+        {{ form_widget(form.weight, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.weight) }}
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">{% trans %}Edit priority{% endtrans %}</button>
+    </div>
+{{ form_end(form, {render_rest: false}) }}
+

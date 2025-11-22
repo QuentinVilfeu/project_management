@@ -1,0 +1,9 @@
+{% extends '_partials/modal/_template_modal.html.twig' %}
+
+{% block idModal %}newPriorityModal{% endblock %}
+
+{% block idModalTitle %}newPriorityModalTitle{% endblock %}
+
+{% block modalTitle %}{% trans %}Add priority{% endtrans %}{% endblock %}
+
+{% block modalBody %}<turbo-frame id="newPriorityModalFrame"></turbo-frame>{% endblock %}

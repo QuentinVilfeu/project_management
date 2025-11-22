@@ -47,3 +47,14 @@ State list: Liste des états
 state.added: 'L''état "%title%" a été ajouté.'
 state.edited: 'L''état "%title%" a été mis à jour.'
 state.deleted: 'L''état "%title%" a été supprimé.'
+States: États
+Priorities: Priorités
+Add priority: Ajouter une priorité
+Create Priority: Créer une priorité
+Edit Priority : Éditer la priorité
+Delete Priority : Supprimer la priorité
+Delete priority : Supprimer la priorité
+priority.added: 'Priorité "%title%" a été ajouté.'
+priority.edited: 'Priorité "%title%" a été mis à jour.'
+priority.deleted: 'Priorité "%title%" a été supprimé.'
+Priority list: Liste des priorités

@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\State;
+use App\Entity\Priority;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class StateType extends AbstractType
+class PriorityType extends AbstractType
 {
     public function __construct(private readonly TranslatorInterface $translator)
     {
@@ -37,7 +37,7 @@ class StateType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => State::class,
+            'data_class' => Priority::class,
         ]);
     }
 }

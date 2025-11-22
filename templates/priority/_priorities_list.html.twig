@@ -1,19 +1,19 @@
 <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>{% trans %}State list{% endtrans %}</h2>
+        <h2>{% trans %}Priority list{% endtrans %}</h2>
         <!-- Button triggers modal -->
         <button
             {{ stimulus_target('modal', 'openModalButton') }}
             type="button"
             class="btn custom-btn"
             data-bs-toggle="modal"
-            data-bs-target="#newStateModal"
-            data-route="app_state_new">
-            {% trans %}Add state{% endtrans %}
+            data-bs-target="#newPriorityModal"
+            data-route="app_priority_new">
+            {% trans %}Add priority{% endtrans %}
         </button>
     </div>
 
-    <table id="stateList"
+    <table id="priorityList"
         class="table table-bordered table-hover" 
         data-toggle="table"
         data-pagination="true"
@@ -31,34 +31,34 @@
             </tr>
         </thead>
         <tbody>
-            {% for state in states %}
+            {% for priority in priorities %}
                 <tr>
-                    <td>{{ state.id }}</td>
-                    <td>{{ state.title }}</td>
-                    <td>{{ state.color }}</td>
-                    <td>{{ state.weight }}</td>
+                    <td>{{ priority.id }}</td>
+                    <td>{{ priority.title }}</td>
+                    <td>{{ priority.color }}</td>
+                    <td>{{ priority.weight }}</td>
                     <td>
-                        <a id="edit_state_{{ state.id }}"
+                        <a id="edit_priority_{{ priority.id }}"
                             class="btn btn-sm btn-outline-primary custom-btn"
-                            title="{{ 'Edit state'|trans }}"
+                            title="{{ 'Edit priority'|trans }}"
                             {{ stimulus_target('modal', 'openModalButton') }}
                             {{ stimulus_action('modal', 'clickActionTable') }}
                             data-bs-toggle="modal"
-                            data-bs-target="#editStateModal"
-                            data-route="app_state_edit"
-                            data-parameters="{{ {'id': state.id}|json_encode|e('html_attr') }}">
+                            data-bs-target="#editPriorityModal"
+                            data-route="app_priority_edit"
+                            data-parameters="{{ {'id': priority.id}|json_encode|e('html_attr') }}">
                                 <!-- pencil icon -->
                                 <i class="bi bi-pencil"></i>
                         </a>
-                        <a id="delete_state_{{ state.id }}"
+                        <a id="delete_priority_{{ priority.id }}"
                             class="btn btn-sm btn-outline-danger"
-                            title="{{ 'Delete State'|trans }}"
+                            title="{{ 'Delete Priority'|trans }}"
                             {{ stimulus_target('modal', 'openModalButton') }}
                             {{ stimulus_action('modal', 'clickActionTable') }}
                             data-bs-toggle="modal"
-                            data-bs-target="#deleteStateModal"
-                            data-route="app_state_delete"
-                            data-parameters="{{ {'id': state.id}|json_encode|e('html_attr') }}">
+                            data-bs-target="#deletePriorityModal"
+                            data-route="app_priority_delete"
+                            data-parameters="{{ {'id': priority.id}|json_encode|e('html_attr') }}">
                                 <!-- trash icon -->
                                 <i class="bi bi-trash"></i>
                         </a>

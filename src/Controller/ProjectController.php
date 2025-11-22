@@ -60,7 +60,6 @@ final class ProjectController extends AbstractController
         return $this->utils->turboStreamResponse($stream);
     }
 
-    // modal: edit project (returns modal fragment with prefilled form)
     #[Route('/edit/{id}', name: 'app_project_edit', methods: ['GET', 'POST'], options: ['expose' => true])]
     public function edit(Request $request, Project $project): Response
     {
@@ -88,7 +87,6 @@ final class ProjectController extends AbstractController
         return $this->utils->turboStreamResponse($stream);
     }
 
-    // modal: confirm delete project (returns modal fragment)
     #[Route('/delete/{id}', name: 'app_project_delete', methods: ['GET', 'POST'], options: ['expose' => true])]
     public function delete(Request $request, Project $project): Response
     {

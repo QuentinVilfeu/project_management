@@ -53,3 +53,13 @@ State list: State list
 state.added: 'State "%title%" has been added.'
 state.edited: 'State "%title%" has been updated.'
 state.deleted: 'State "%title%" has been deleted.'
+States: States
+Priorities: Priorities
+Add Priority: Add Priority
+Create Priority: Create Priority
+Edit Priority : Edit Priority
+Delete Priority : Delete Priority
+priority.added: 'Priority "%title%" has been added.'
+priority.edited: 'Priority "%title%" has been updated.'
+priority.deleted: 'Priority "%title%" has been deleted.'
+Priority list: Priority list

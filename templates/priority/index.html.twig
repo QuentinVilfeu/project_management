@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Priorities{% endtrans %}{% endblock %}
+
+{% block body %}
+    <div {{ stimulus_controller('modal') }} class="container py-4">
+        <!-- priorities list target for turbo streams -->
+        <div id="prioritiesList">
+            {% include 'priority/_priorities_list.html.twig' with {priorities: priorities} %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block modals %}
+    {% include "priority/_modal.html.twig" %}
+    {% include "priority/_modal_edit.html.twig" %}
+    {% include "priority/_modal_delete.html.twig" %}
+{% endblock %}

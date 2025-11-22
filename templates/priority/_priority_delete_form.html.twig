@@ -1,0 +1,8 @@
+<form method="post" action="{{ path('app_priority_delete', {'id': priority.id}) }}">
+    <div class="modal-body">
+        <p>{{ 'Confirm deletion'|trans({'%name%': priority.title}) }}</p>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">{{ 'Delete'|trans }}</button>
+    </div>
+</form>
