@@ -1,0 +1,10 @@
+{# new file: modal edit state #}
+{% extends '_partials/modal/_template_modal.html.twig' %}
+
+{% block idModal %}editStateModal{% endblock %}
+
+{% block idModalTitle %}editStateModalTitle{% endblock %}
+
+{% block modalTitle %}{% trans %}Edit state{% endtrans %}{% endblock %}
+
+{% block modalBody %}<turbo-frame id="editStateModalFrame"></turbo-frame>{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}States{% endtrans %}{% endblock %}
+
+{% block body %}
+    <div {{ stimulus_controller('modal') }} class="container py-4">
+        <!-- states list target for turbo streams -->
+        <div id="statesList">
+            {% include 'state/_states_list.html.twig' with {states: states} %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block modals %}
+    {% include "state/_modal.html.twig" %}
+    {% include "state/_modal_edit.html.twig" %}
+    {% include "state/_modal_delete.html.twig" %}
+{% endblock %}

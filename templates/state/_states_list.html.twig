@@ -1,0 +1,70 @@
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>{% trans %}State list{% endtrans %}</h2>
+        <!-- Button triggers modal -->
+        <button
+            {{ stimulus_target('modal', 'openModalButton') }}
+            type="button"
+            class="btn custom-btn"
+            data-bs-toggle="modal"
+            data-bs-target="#newStateModal"
+            data-route="app_state_new">
+            {% trans %}Add state{% endtrans %}
+        </button>
+    </div>
+
+    <table id="stateList"
+        class="table table-bordered table-hover" 
+        data-toggle="table"
+        data-pagination="true"
+        data-search="true"
+        data-show-search-clear-button="true"
+        data-filter-control="true"
+        data-locale="{{ app.request.locale|default('fr')|replace({'_':'-'}) }}">
+        <thead>
+            <tr>
+                <th data-sortable="true" data-field="id">Id</th>
+                <th data-sortable="true" data-filter-control="select" data-field="title">{% trans %}Title{% endtrans %}</th>
+                <th data-field="color">{% trans %}Color{% endtrans %}</th>
+                <th data-field="weight">{% trans %}Weight{% endtrans %}</th>
+                <th>{% trans %}Actions{% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for state in states %}
+                <tr>
+                    <td>{{ state.id }}</td>
+                    <td>{{ state.title }}</td>
+                    <td>{{ state.color }}</td>
+                    <td>{{ state.weight }}</td>
+                    <td>
+                        <a id="edit_state_{{ state.id }}"
+                            class="btn btn-sm btn-outline-primary custom-btn"
+                            title="{{ 'Edit state'|trans }}"
+                            {{ stimulus_target('modal', 'openModalButton') }}
+                            {{ stimulus_action('modal', 'clickActionTable') }}
+                            data-bs-toggle="modal"
+                            data-bs-target="#editStateModal"
+                            data-route="app_state_edit"
+                            data-parameters="{{ {'id': state.id}|json_encode|e('html_attr') }}">
+                                <!-- pencil icon -->
+                                <i class="bi bi-pencil"></i>
+                        </a>
+                        <a id="delete_state_{{ state.id }}"
+                            class="btn btn-sm btn-outline-danger"
+                            title="{{ 'Delete State'|trans }}"
+                            {{ stimulus_target('modal', 'openModalButton') }}
+                            {{ stimulus_action('modal', 'clickActionTable') }}
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteStateModal"
+                            data-route="app_state_delete"
+                            data-parameters="{{ {'id': state.id}|json_encode|e('html_attr') }}">
+                                <!-- trash icon -->
+                                <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

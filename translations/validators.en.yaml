@@ -7,3 +7,9 @@
 "A project with this title already exists": A project with this title already exists
 "Title should not be null": Title should not be null
 "Description should not be null": Description should not be null
+"This state already exists": This state already exists
+"Color should not be null": Color should not be null
+"The value \"{{ value }}\" is not a valid hexadecimal color (expected format: #RRGGBB or #RGB)": "The value \"{{ value }}\" is not a valid hexadecimal color (expected format: #RRGGBB or #RGB)"
+"Weight should not be null": Weight should not be null
+"Weight must be a positive integer": Weight must be a positive integer
+"This weight already exists": This weight already exists

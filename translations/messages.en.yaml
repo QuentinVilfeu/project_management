@@ -29,7 +29,7 @@ Edit user: Edit User
 Delete User: Delete User
 Edit Project: Edit Project
 Delete Project: Delete Project
-Confirm deletion: Are you sure you want to delete %name% ?
+Confirm deletion: Are you sure you want to delete "%name%" ?
 Delete confirmation: Confirm deletion
 modal.close: Close
 modal.save: Save changes
@@ -43,3 +43,13 @@ user.edited: 'User %email% has been updated.'
 user.deleted: 'User %email% has been deleted.'
 Homepage: Homepage
 Roles to be assigned: Roles to be assigned
+Color: Color
+Weight: Weight
+Edit state : Edit state
+Delete state : Delete state
+Add state: Add state
+Create State: Create State
+State list: State list
+state.added: 'State "%title%" has been added.'
+state.edited: 'State "%title%" has been updated.'
+state.deleted: 'State "%title%" has been deleted.'

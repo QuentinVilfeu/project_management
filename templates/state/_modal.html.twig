@@ -1,0 +1,9 @@
+{% extends '_partials/modal/_template_modal.html.twig' %}
+
+{% block idModal %}newStateModal{% endblock %}
+
+{% block idModalTitle %}newStateModalTitle{% endblock %}
+
+{% block modalTitle %}{% trans %}Add state{% endtrans %}{% endblock %}
+
+{% block modalBody %}<turbo-frame id="newStateModalFrame"></turbo-frame>{% endblock %}

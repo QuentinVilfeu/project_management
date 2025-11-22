@@ -7,3 +7,9 @@
 "A project with this title already exists": Un projet avec ce titre existe déjà
 "Title should not be null": Le titre ne doit pas être vide
 "Description should not be null": La description ne doit pas être vide
+"This state already exists":  Cet état existe déjà
+"Color should not be null": La couleur ne doit pas être vide
+"The value \"{{ value }}\" is not a valid hexadecimal color (expected format: #RRGGBB or #RGB)": "La valeur \"{{ value }}\" n'est pas une couleur hexadécimale valide (format attendu : #RRGGBB ou #RGB)"
+"Weight should not be null": Le poids ne doit pas être vide
+"Weight must be a positive integer": Le poids doit être un entier positif
+"This weight already exists": Ce poids existe déjà

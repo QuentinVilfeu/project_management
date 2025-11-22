@@ -1,0 +1,9 @@
+{% extends '_partials/modal/_template_modal.html.twig' %}
+
+{% block idModal %}deleteStateModal{% endblock %}
+
+{% block idModalTitle %}deleteStateModalTitle{% endblock %}
+
+{% block modalTitle %}{% trans %}Delete state{% endtrans %}{% endblock %}
+
+{% block modalBody %}<turbo-frame id="deleteStateModalFrame"></turbo-frame>{% endblock %}
