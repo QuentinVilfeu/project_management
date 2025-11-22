@@ -25,7 +25,7 @@ User: User
 Project: Project
 Edit: Edit
 Delete: Delete
-Edit User: Edit User
+Edit user: Edit User
 Delete User: Delete User
 Edit Project: Edit Project
 Delete Project: Delete Project
@@ -41,3 +41,5 @@ project.deleted: 'Project "%title%" has been deleted.'
 user.added: 'User %email% has been added.'
 user.edited: 'User %email% has been updated.'
 user.deleted: 'User %email% has been deleted.'
+Homepage: Homepage
+Roles to be assigned: Roles to be assigned

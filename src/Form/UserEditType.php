@@ -14,7 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class UserType extends AbstractType
+class UserEditType extends AbstractType
 {
     public function __construct(
         private TranslatorInterface $translator,
@@ -41,11 +41,7 @@ class UserType extends AbstractType
                 'label' => $this->translator->trans('Lastname'),
                 'attr' => ['class' => 'form-control', 'placeholder' => $this->translator->trans('Lastname')],
             ])
-            ->add('password', PasswordType::class, [
-                'label' => $this->translator->trans('Password'),
-                'attr' => ['class' => 'form-control', 'placeholder' => $this->translator->trans('Password')],
-            ])
-        ;
+        ;   
 
         if (! $this->security->isGranted('ROLE_ADMIN')) {
             return;
@@ -69,6 +65,6 @@ class UserType extends AbstractType
 
     public function getBlockPrefix(): string
     {
-        return 'new_user_form'; 
+        return 'edit_user_form'; 
     }
 }

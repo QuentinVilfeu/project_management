@@ -1,0 +1,30 @@
+/* Cache la checkbox elle-même */
+.role-button-item input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.role-button-item label {
+    display: inline-block;
+    padding: 8px 15px;
+    margin-right: 5px;
+    border: 1px solid #079431;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: #079431;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.role-button-item label:hover {
+    background-color: #e2e6ea;
+    border-color: #02601e;
+}
+
+.role-button-item input[type="checkbox"]:checked + label {
+    background-color: #079431;
+    color: white;
+    border-color: #079431;
+}

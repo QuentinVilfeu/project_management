@@ -32,3 +32,7 @@ project.deleted: Projet %title% supprimé avec succès
 user.added: Utilisateur %email% ajouté avec succès
 user.edited: Utilisateur %email% mis à jour avec succès
 user.deleted: Utilisateur %email% supprimé avec succès
+Homepage: Accueil
+Roles to be assigned: Rôles à attribuer
+Edit user: Éditer l'utilisateur
+Delete user: Supprimer l'utilisateur

@@ -1,16 +1,11 @@
 {% form_theme form 'form/custom_errors.html.twig' %}
 
-{{ form_start(form, {'action': path('app_user_new')}) }}
+{{ form_start(form, {'action': path('app_user_edit', {id: user.id})}) }}
     {{ form_widget(form._token) }}
     <div class="mb-3">
         {{ form_label(form.email) }}
         {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
         {{ form_errors(form.email) }}
-    </div>
-    <div class="mb-3">
-        {{ form_label(form.password) }}
-        {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
-        {{ form_errors(form.password) }}
     </div>
     <div class="mb-3">
         {{ form_label(form.firstname) }}
@@ -31,7 +26,9 @@
             {{ form_errors(form.roles) }}
         </div>
     {% endif %}
+
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">{% trans %}Create User{% endtrans %}</button>
+        <button type="submit" class="btn btn-primary">{% trans %}Edit user{% endtrans %}</button>
     </div>
-{{ form_end(form) }}
+{{ form_end(form, {render_rest: false}) }}
+

@@ -28,11 +28,10 @@ export default class extends Controller<HTMLElement> {
         this.startAction(event.currentTarget as HTMLButtonElement);
     }
 
-    fetchController(route: string, parameters: Record<string, any>) {
+    async fetchController(route: string, parameters: Record<string, any>) {
         const url = speRouting.generate(route, parameters);
-        console.log(url);
-        
-        fetch(url, {
+
+        await fetch(url, {
             headers: {
                 Accept: "text/vnd.turbo-stream.html",
             },

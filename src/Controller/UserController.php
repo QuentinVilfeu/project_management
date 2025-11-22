@@ -8,11 +8,14 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
+use App\Form\UserEditType;
 use App\Form\UserType;
 use App\Service\Utils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+#[IsGranted('ROLE_ADMIN')]
 #[Route('/user')]
 final class UserController extends AbstractController
 {
@@ -43,6 +46,15 @@ final class UserController extends AbstractController
 
         // Process form submission
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->has('roles')) {
+                $roles = [];
+
+                foreach ($form->get('roles')->getData() as $role) {
+                    $roles[] = $role;
+                }
+
+                $user->setRoles($roles);
+            }
             // Hash the password
             $hashedPassword = $hasher->hashPassword($user, $user->getPassword());
             $user->setPassword($hashedPassword);
@@ -51,6 +63,7 @@ final class UserController extends AbstractController
             $this->em->persist($user);
             $this->em->flush();
 
+            $this->addFlash('success', $this->translator->trans('user.added', ['%email%' => $user->getEmail()]));
             // Return a Turbo Stream response to update the user list
             return $this->utils->turboStreamResponse('app_user', true);
         }
@@ -64,15 +77,36 @@ final class UserController extends AbstractController
     }
 
     // modal: edit user (returns modal fragment with prefilled form)
-    #[Route('/user/{id}/modal-edit', name: 'app_user_edit', methods: ['GET', 'POST'], options: ['expose' => true])]
+    #[Route('/edit/{id}', name: 'app_user_edit', methods: ['GET', 'POST'], options: ['expose' => true])]
     public function modalEdit(Request $request, User $user): Response
     {
         // Create the Form
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserEditType::class, $user);
         $form->handleRequest($request);
+
+        // Process form submission
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->has('roles')) {
+                $roles = [];
+
+                foreach ($form->get('roles')->getData() as $role) {
+                    $roles[] = $role;
+                }
+
+                $user->setRoles($roles);
+            }
+            // Save the User
+            $this->em->persist($user);
+            $this->em->flush();
+
+            $this->addFlash('success', $this->translator->trans('user.edited', ['%email%' => $user->getEmail()]));
+            // Return a Turbo Stream response to update the user list
+            return $this->utils->turboStreamResponse('app_user', true);
+        }
 
         // Render the form in a Turbo Stream response
         $stream = $this->renderView('user/user_edit.turbo_stream.html.twig', [
+            "user" => $user,
             "form" => $form
         ]);
 

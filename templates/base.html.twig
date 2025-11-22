@@ -13,6 +13,9 @@
         <link rel="stylesheet" href="{{ asset('vendor/bootstrap-table-master/dist/bootstrap-table.min.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/bootstrap-table-master/dist/extensions/filter-control/bootstrap-table-filter-control.min.css') }}">
 
+        {# Font Awesome #}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -23,6 +26,8 @@
         {% endblock %}
     </head>
     <body>
+        {% include "_partials/menu.html.twig" %}
+
         {% include "_partials/flash_messages.html.twig" %}
 
         {% block body %}{% endblock %}
@@ -39,6 +44,9 @@
         <script src="{{ asset('vendor/bootstrap-table-master/dist/extensions/multiple-sort/bootstrap-table-multiple-sort.min.js') }}"></script>
         <script src="{{ asset('vendor/bootstrap-table-master/dist/extensions/i18n-enhance/bootstrap-table-i18n-enhance.js') }}"></script>
     
+        {# Font Awesome #}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js" integrity="sha512-6BTOlkauINO65nLhXhthZMtepgJSghyimIalb+crKRPhvhmsCdnIuGcVbR5/aQY2A+260iC1OPy1oCdB6pSSwQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
         {# Translation for Bootstrap Table #}
         <script>
             (function() {

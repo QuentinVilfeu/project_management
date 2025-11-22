@@ -1,0 +1,30 @@
+@import './menu.css';
+@import './roleSelection.css';
+
+
+/* Style spécifique pour les bouton d'action */
+.custom-btn-glow, .custom-btn {
+    color: #ffffff;
+    border-color: #6a0dad;
+    box-shadow: 0 0 5px rgba(106, 13, 173, 0.5);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.custom-btn {
+    color: #6a0dad;
+}
+
+.custom-btn-glow:hover {
+    color: #ffffff;
+    background-color: #6a0dad;
+    border-color: #6a0dad;
+    /* Effet de lueur plus intense au survol */
+    box-shadow: 0 0 15px #6a0dad, 0 0 20px #6a0dad; 
+    transform: translateY(-2px); /* Léger soulèvement */
+}
+
+.custom-btn:hover {
+    color: #ffffff;
+    background-color: #6a0dad;
+    border-color: #6a0dad;
+}

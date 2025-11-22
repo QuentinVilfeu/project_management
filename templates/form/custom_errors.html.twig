@@ -8,3 +8,26 @@
         </ul>
     {% endif %}
 {% endblock form_errors %}
+
+{# Surcharge du bloc pour les checkboxes multiples (expanded) #}
+{% block choice_widget_expanded %}
+    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' form-check-inline')|trim}) %}
+    
+    {% for child in form %}
+        <div class="role-button-item">
+            {{ form_widget(child, {'attr': attr}) }}
+            {{ form_label(child) }}
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{# Vous pouvez aussi vouloir surcharger le bloc de rendu d'une checkbox individuelle #}
+{% block checkbox_widget %}
+    {% set label_attr = label_attr|merge({'class': 'btn btn-outline-success'}) %}
+
+    <input type="checkbox" id="{{ id }}" name="{{ full_name }}" value="{{ value }}" 
+        {% if checked %}checked="checked"{% endif %}
+        {{ block('widget_attributes') }} 
+        class="d-none" />
+    <label for="{{ id }}" class="{{ label_attr.class|default('') }}">{{ label|trans }}</label>
+{% endblock %}

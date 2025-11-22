@@ -5,7 +5,7 @@
         <button
             {{ stimulus_target('modal', 'openModalButton') }}
             type="button"
-            class="btn btn-primary"
+            class="btn custom-btn"
             data-bs-toggle="modal"
             data-bs-target="#newUserModal"
             data-route="app_user_new">
@@ -19,13 +19,15 @@
         data-pagination="true"
         data-search="true"
         data-show-search-clear-button="true"
-        data-filter-control="true">
+        data-filter-control="true"
+        data-locale="{{ app.request.locale|default('fr')|replace({'_':'-'}) }}">
         <thead>
             <tr>
                 <th data-sortable="true" data-field="id">Id</th>
                 <th data-sortable="true" data-filter-control="input" data-field="firstname">{% trans %}Firstname{% endtrans %}</th>
                 <th data-sortable="true" data-filter-control="input" data-field="lastname">{% trans %}Lastname{% endtrans %}</th>
                 <th data-sortable="true" data-filter-control="input" data-field="email">{% trans %}Email{% endtrans %}</th>
+                <th>{% trans %}Actions{% endtrans %}</th>
             </tr>
         </thead>
         <tbody>
@@ -36,21 +38,29 @@
                     <td>{{ user.lastname }}</td>
                     <td>{{ user.email }}</td>
                     <td>
-                        <a href="#" class="btn btn-sm btn-outline-primary" data-controller="modal" data-action="click->modal#open" data-url="{{ path('app_user_edit', {'id': user.id}) }}" title="{{ 'Edit User'|trans }}">
-                            <!-- pencil icon -->
-                            <i class="bi bi-pencil"></i>
+                        <a id="edit_user_{{ user.id }}"
+                            class="btn btn-sm btn-outline-primary custom-btn"
+                            title="{{ 'Edit user'|trans }}"
+                            {{ stimulus_target('modal', 'openModalButton') }}
+                            {{ stimulus_action('modal', 'clickActionTable') }}
+                            data-bs-toggle="modal"
+                            data-bs-target="#editUserModal"
+                            data-route="app_user_edit"
+                            data-parameters="{{ {'id': user.id}|json_encode|e('html_attr') }}">
+                                <!-- pencil icon -->
+                                <i class="bi bi-pencil"></i>
                         </a>
                         <a id="delete_user_{{ user.id }}"
-                        class="btn btn-sm btn-outline-danger"
-                        title="{{ 'Delete User'|trans }}"
-                        {{ stimulus_target('modal', 'openModalButton') }}
-                        {{ stimulus_action('modal', 'clickActionTable') }}
-                        data-bs-toggle="modal"
-                        data-bs-target="#deleteUserModal"
-                        data-route="app_user_delete"
-                        data-parameters="{{ {'id': user.id}|json_encode|e('html_attr') }}">
-                            <!-- trash icon -->
-                            <i class="bi bi-trash"></i>
+                            class="btn btn-sm btn-outline-danger"
+                            title="{{ 'Delete User'|trans }}"
+                            {{ stimulus_target('modal', 'openModalButton') }}
+                            {{ stimulus_action('modal', 'clickActionTable') }}
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteUserModal"
+                            data-route="app_user_delete"
+                            data-parameters="{{ {'id': user.id}|json_encode|e('html_attr') }}">
+                                <!-- trash icon -->
+                                <i class="bi bi-trash"></i>
                         </a>
                     </td>
                 </tr>
