@@ -1,0 +1,15 @@
+{% form_theme form 'form/custom_errors.html.twig' %}
+
+{{ form_start(form, {'action': path('app_task_close', {id: task.id})}) }}
+    {{ form_widget(form._token) }}
+
+    <div class="mb-3">
+        {{ form_label(form.closingDate) }}
+        {{ form_widget(form.closingDate, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.closingDate) }}
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">{% trans %}Close task{% endtrans %}</button>
+    </div>
+{{ form_end(form, {render_rest: false}) }}

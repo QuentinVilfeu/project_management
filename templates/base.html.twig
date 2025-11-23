@@ -28,7 +28,9 @@
     <body>
         {% include "_partials/menu.html.twig" %}
 
-        {% include "_partials/flash_messages.html.twig" %}
+        <turbo-frame id="flashMessages">
+            {% include "_partials/flash_messages.html.twig" %}
+        </turbo-frame>
 
         {% block body %}{% endblock %}
 

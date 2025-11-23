@@ -1,0 +1,137 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Task{% endtrans %}{% endblock %}
+
+{% block body %}
+    <div {{ stimulus_controller('modal') }} class="container py-4 mt-5">
+        <div {{ stimulus_controller('task_action') }} >
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="m-0">{{ task.title }}</h2>
+                <div id="taskActions" class="dropdown">
+                    <button class="btn btn-outline-secondary" 
+                            type="button" 
+                            id="taskActionsButton" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                        <i class="bi bi-grid-3x2-gap"></i>
+                    </button>
+
+                    <ul class="dropdown-menu" 
+                        aria-labelledby="taskActionsButton">
+                        <li>
+                            <a id="edit_task_{{ task.id }}"
+                                class="dropdown-item"
+                                title="{{ 'Edit task'|trans }}"
+                                {{ stimulus_target('modal', 'openModalButton') }}
+                                {{ stimulus_action('modal', 'clickActionTable') }}
+                                data-bs-toggle="modal"
+                                data-bs-target="#editTaskModal"
+                                data-route="app_task_edit"
+                                data-parameters="{{ {'id': task.id}|json_encode|e('html_attr') }}">
+                                    {% trans %}Edit{% endtrans %}
+                            </a>
+                        </li>
+                        <li>
+                            <a id="delete_task_{{ task.id }}"
+                                class="dropdown-item text-danger"
+                                title="{{ 'Delete Task'|trans }}"
+                                {{ stimulus_target('modal', 'openModalButton') }}
+                                {{ stimulus_action('modal', 'clickActionTable') }}
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteTaskModal"
+                                data-route="app_task_delete"
+                                data-parameters="{{ {'id': task.id}|json_encode|e('html_attr') }}">
+                                    {% trans %}Delete{% endtrans %}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="d-flex flex-row gap-2">
+                <div {{ stimulus_target('task_action', 'taskAction') }} id="changePriority" class="inpageAction dropdown mt-3">
+                    <turbo-frame id="changePriorityFrame">
+                        <button class="btn dropdown-toggle text-white" 
+                                type="button" 
+                                id="changePriorityButton" 
+                                data-bs-toggle="dropdown" 
+                                aria-expanded="false"
+                                style="background-color:{{ task.priority.color }}">
+                            {{ task.priority.title }}
+                        </button>
+
+                        <ul class="dropdown-menu" 
+                            aria-labelledby="changePriorityButton">
+                                {% for priority in priorities %}
+                                    <li><a
+                                        {{ stimulus_action('task_action', 'updatePriority') }}
+                                        class="dropdown-item" style="color:{{ priority.color }}" data-action-task-id="{{ task.id }}" data-action-priority-id="{{ priority.id }}">{{ priority.title }}</a></li>
+                                {% endfor %}
+                        </ul>
+                    </turbo-frame>
+                </div>
+                <div {{ stimulus_target('task_action', 'taskAction') }} id="changeState" class="inpageAction dropdown mt-3">
+                    <turbo-frame id="changeStateFrame">
+                        <button class="btn dropdown-toggle text-white" 
+                                type="button" 
+                                id="changeStateButton" 
+                                data-bs-toggle="dropdown" 
+                                aria-expanded="false"
+                                style="background-color:{{ task.state.color }}">
+                            {{ task.state.title }}
+                        </button>
+
+                        <ul class="dropdown-menu" 
+                            aria-labelledby="changeStateButton">
+                                {% for state in states %}
+                                    <li><a {{ stimulus_action('task_action', 'updateState') }}
+                                        class="dropdown-item" href="#" style="color:{{ state.color }}" data-action-task-id="{{ task.id }}" data-action-state-id="{{ state.id }}">{{ state.title }}</a></li>
+                                {% endfor %}
+                        </ul>
+                    </turbo-frame>
+                </div>
+            </div>
+
+            <div id="taskContent" class="mt-5">
+                <div class="d-flex flex-row gap-3">
+                    <h5 class="fw-bold">{% trans %}Initial end date{% endtrans %} : </h5>
+                    <p class="fw-light">{{ task.initialEndDate|date('d-m-Y') }}</p>
+                </div>
+                <div>
+                    <h5 class="fw-bold">{% trans %}Description{% endtrans %}</h5>
+                    <p class="fw-light">{{ task.description }}</p>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <h5 class="fw-bold m-0">{% trans %}Assigned to{% endtrans %} : </h5>
+                    <div {{ stimulus_target('task_action', 'taskAction') }} id="changeAssignee" class="dropdown">
+                        <turbo-frame id="changeAssigneeFrame">
+                            <button class="btn btn-secondary dropdown-toggle" 
+                                    type="button" 
+                                    id="changeAssigneeButton" 
+                                    data-bs-toggle="dropdown" 
+                                    aria-expanded="false">
+                                {{ task.assignee }}
+                            </button>
+
+                            <ul class="dropdown-menu" 
+                                aria-labelledby="changeAssigneeButton">
+                                    {% for user in users %}
+                                        <li><a {{ stimulus_action('task_action', 'updateAssignee') }}
+                                            data-action-task-id="{{ task.id }}" data-action-assignee-id="{{ user.id }}"
+                                            class="dropdown-item" href="#">{{ user ~ ' (' ~ user.email ~ ')' }}</a></li>
+                                    {% endfor %}
+                            </ul>
+                        </turbo-frame>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block modals %}
+    {% include "task/_modal.html.twig" %}
+    {% include "task/_modal_edit.html.twig" %}
+    {% include "task/_modal_close.html.twig" %}
+    {% include "task/_modal_delete.html.twig" %}
+{% endblock %}

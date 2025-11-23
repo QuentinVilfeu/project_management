@@ -13,3 +13,5 @@
 "Weight should not be null": Weight should not be null
 "Weight must be a positive integer": Weight must be a positive integer
 "This weight already exists": This weight already exists
+"The end date cannot be in the past": The end date cannot be in the past
+"The closing date cannot be in the future": The closing date cannot be in the future

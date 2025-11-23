@@ -63,3 +63,24 @@ priority.added: 'Priority "%title%" has been added.'
 priority.edited: 'Priority "%title%" has been updated.'
 priority.deleted: 'Priority "%title%" has been deleted.'
 Priority list: Priority list
+Assignee: Assignee
+Priority: Priority
+State: State
+Initial end date: End date
+Actions: Actions
+Closing date: Closing date
+Create task: Create task
+Close task: Close task
+Edit task: Edit task
+Delete task: Delete task
+Add task: Add task
+Add new task: Add new task
+Task list: Task list
+Tasks: Tasks
+task.added: 'Task "%title%" has been added.'
+task.edited: 'Task "%title%" has been updated.'
+task.deleted: 'Task "%title%" has been deleted.'
+task.closed: 'Task "%title%" has been closed.'
+Assigned to : Assigned to
+'-- Select a project --': '-- Select a project --'
+'-- Select a user --': '-- Select a user --'

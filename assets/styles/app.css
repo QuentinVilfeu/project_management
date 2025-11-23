@@ -28,3 +28,9 @@
     background-color: #6a0dad;
     border-color: #6a0dad;
 }
+
+.actions-column {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}

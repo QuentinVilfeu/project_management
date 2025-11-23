@@ -54,9 +54,17 @@ class Task
     private Collection $taskLinked;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\GreaterThanOrEqual(
+        value: 'today',
+        message: 'The end date cannot be in the past'
+    )]
     private ?\DateTime $initialEndDate = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\LessThanOrEqual(
+        value: 'today',
+        message: 'The closing date cannot be in the future'
+    )]
     private ?\DateTime $closingDate = null;
 
     public function __construct()
@@ -234,6 +242,11 @@ class Task
     public function getDeadlineStatus(): string
     {
         $returnValue = '';
+
+        // Si la date n'est pas définie, on retourne un statut neutre ou une erreur
+        if ($this->closingDate !== null) {
+            return '';
+        }
 
         // Si la date n'est pas définie, on retourne un statut neutre ou une erreur
         if ($this->initialEndDate === null) {

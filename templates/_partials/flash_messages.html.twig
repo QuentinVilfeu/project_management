@@ -1,9 +1,3 @@
-{# 
-   ********************************************************************************
-    NOTIFICATION FIXE EN BAS À GAUCHE AVEC AUTO-DISPARITION APRÈS 5 SECONDES
-   ********************************************************************************
-#}
-
 {% for type, messages in app.flashes %}
     {% for message in messages %}
         
@@ -24,34 +18,3 @@
 
     {% endfor %}
 {% endfor %}
-
-{# 
-   ********************************************************************************
-    SCRIPT JAVASCRIPT POUR L'AUTO-FERMETURE
-   ********************************************************************************
-#}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Cibler tous les éléments d'alerte avec la classe 'alert-autoclose'
-        const autocloseAlerts = document.querySelectorAll('.alert-autoclose');
-
-        autocloseAlerts.forEach(alertElement => {
-            // Définir le délai de 5000 millisecondes (5 secondes)
-            const delay = 5000; 
-            
-            // Lancer le timer
-            setTimeout(function() {
-                // Trouver le bouton de fermeture
-                const closeButton = alertElement.querySelector('.btn-close');
-                
-                // Si le bouton existe, simuler un clic pour déclencher la fermeture Bootstrap
-                if (closeButton) {
-                    closeButton.click();
-                } else {
-                    // Si pas de bouton, masquer directement l'alerte
-                    alertElement.style.display = 'none'; 
-                }
-            }, delay);
-        });
-    });
-</script>

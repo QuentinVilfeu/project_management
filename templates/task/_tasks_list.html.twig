@@ -9,7 +9,7 @@
             data-bs-toggle="modal"
             data-bs-target="#newTaskModal"
             data-route="app_task_new">
-            {% trans %}Add Task{% endtrans %}
+            {% trans %}Add task{% endtrans %}
         </button>
     </div>
 
@@ -29,7 +29,8 @@
                 <th data-sortable="true" data-filter-control="select" data-field="assignee">{% trans %}Assignee{% endtrans %}</th>
                 <th data-sortable="true" data-filter-control="select" data-field="priority">{% trans %}Priority{% endtrans %}</th>
                 <th data-sortable="true" data-filter-control="select" data-field="state">{% trans %}State{% endtrans %}</th>
-                <th data-sortable="true" data-field="initialDateEnd">{% trans %}Initial date end{% endtrans %}</th>
+                <th data-sortable="true" data-field="initialDateEnd">{% trans %}Initial end date{% endtrans %}</th>
+                <th data-sortable="true" data-field="closingDate">{% trans %}Closing date{% endtrans %}</th>
                 <th>{% trans %}Actions{% endtrans %}</th>
             </tr>
         </thead>
@@ -43,8 +44,14 @@
                     <td class="text-center"><span class="badge" style="background-color: {{ task.priority.color }}">{{ task.priority }}</span></td>
                     <td class="text-center"><span class="badge" style="background-color: {{ task.state.color }}">{{ task.state }}</span></td>
                     <td class="bg-{{ task.getDeadlineStatus }} text-center">{{ task.initialEndDate ? task.initialEndDate|date('d-m-Y') : '' }}</td>
-                    
-                    <td>
+                    <td class="text-center">{{ task.closingDate ? task.closingDate|date('d-m-Y') : '' }}</td>
+                    <td class="actions-column">
+                        <a id="page_task_{{ task.id }}"
+                            class="btn btn-sm btn-outline-success"
+                            title="{{ 'Page task'|trans }}"
+                            href="{{ path('app_task_page', {id: task.id}) }}">
+                                <i class="bi bi-eye"></i>
+                        </a>
                         <a id="edit_task_{{ task.id }}"
                             class="btn btn-sm btn-outline-primary custom-btn"
                             title="{{ 'Edit task'|trans }}"
@@ -54,10 +61,9 @@
                             data-bs-target="#editTaskModal"
                             data-route="app_task_edit"
                             data-parameters="{{ {'id': task.id}|json_encode|e('html_attr') }}">
-                                <!-- pencil icon -->
                                 <i class="bi bi-pencil"></i>
                         </a>
-                        <a id="delete_task_{{ task.id }}"
+                        {# <a id="delete_task_{{ task.id }}"
                             class="btn btn-sm btn-outline-danger"
                             title="{{ 'Delete Task'|trans }}"
                             {{ stimulus_target('modal', 'openModalButton') }}
@@ -66,8 +72,18 @@
                             data-bs-target="#deleteTaskModal"
                             data-route="app_task_delete"
                             data-parameters="{{ {'id': task.id}|json_encode|e('html_attr') }}">
-                                <!-- trash icon -->
                                 <i class="bi bi-trash"></i>
+                        </a> #}
+                        <a id="close_task_{{ task.id }}"
+                            class="btn btn-sm btn-outline-danger"
+                            title="{{ 'Close task'|trans }}"
+                            {{ stimulus_target('modal', 'openModalButton') }}
+                            {{ stimulus_action('modal', 'clickActionTable') }}
+                            data-bs-toggle="modal"
+                            data-bs-target="#closeTaskModal"
+                            data-route="app_task_close"
+                            data-parameters="{{ {'id': task.id}|json_encode|e('html_attr') }}">
+                                <i class="bi bi-calendar-x"></i>
                         </a>
                     </td>
                 </tr>

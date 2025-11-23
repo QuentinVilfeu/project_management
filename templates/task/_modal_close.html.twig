@@ -1,0 +1,9 @@
+{% extends '_partials/modal/_template_modal.html.twig' %}
+
+{% block idModal %}closeTaskModal{% endblock %}
+
+{% block idModalTitle %}closeTaskModalTitle{% endblock %}
+
+{% block modalTitle %}{% trans %}Close task{% endtrans %}{% endblock %}
+
+{% block modalBody %}<turbo-frame id="closeTaskModalFrame"></turbo-frame>{% endblock %}

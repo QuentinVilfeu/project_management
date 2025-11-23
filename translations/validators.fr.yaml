@@ -13,3 +13,5 @@
 "Weight should not be null": Le poids ne doit pas être vide
 "Weight must be a positive integer": Le poids doit être un entier positif
 "This weight already exists": Ce poids existe déjà
+"The end date cannot be in the past": La date de fin ne peut pas être dans le passé
+"The closing date cannot be in the future": La date de clôture ne peut pas être dans le futur

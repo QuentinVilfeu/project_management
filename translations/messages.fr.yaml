@@ -58,3 +58,25 @@ priority.added: 'Priorité "%title%" a été ajouté.'
 priority.edited: 'Priorité "%title%" a été mis à jour.'
 priority.deleted: 'Priorité "%title%" a été supprimé.'
 Priority list: Liste des priorités
+Assignee: Assigné
+Priority: Priorité
+State: État
+Initial end date: Date de fin
+Actions: Actions
+Closing date: Date de clôture
+Create task: Créer la tâche
+Close task: Fermer la tâche
+Edit task: Modifier la tâche
+Delete task: Supprimer la tâche
+Add task: Ajouter une tâche
+Add new task: Ajouter une nouvelle tâche
+Task list: Liste des tâches
+Tasks: Tâches
+task.added: 'La tâche "%title%" a été ajoutée.'
+task.edited: 'La tâche "%title%" a été mise à jour.'
+task.deleted: 'La tâche "%title%" a été supprimée.'
+task.closed: 'La tâche "%title%" a été fermée.'
+Assigned to : Assigné à
+Edit: Modifier
+'-- Select a project --': '-- Sélectionner un projet --'
+'-- Select a user --': '-- Sélectionner un utilisateur --'

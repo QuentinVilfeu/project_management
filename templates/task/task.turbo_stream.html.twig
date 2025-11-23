@@ -1,0 +1,62 @@
+{% if action is defined %}
+    {% if action == "actionNew" %}
+        <turbo-stream action="update" target="newTaskModalFrame">
+            <template>
+                {% include 'task/_task_new_form.html.twig' with {form: form} %}
+            </template
+        </turbo-stream>
+    {% endif %}
+
+    {% if action == "actionEdit" %}
+        <turbo-stream action="update" target="editTaskModalFrame">
+            <template>
+                {% include 'task/_task_edit_form.html.twig' with {form: form} %}
+            </template
+        </turbo-stream>
+    {% endif %}
+
+    {% if action == "actionClose" %}
+        <turbo-stream action="update" target="closeTaskModalFrame">
+            <template>
+                {% include 'task/_task_close_form.html.twig' with {form: form} %}
+            </template
+        </turbo-stream>
+    {% endif %}
+
+    {% if action == "actionDelete" %}
+        <turbo-stream action="update" target="deleteTaskModalFrame">
+            <template>
+                {% include 'task/_task_delete_form.html.twig' %}
+            </template
+        </turbo-stream>
+    {% endif %}
+
+    {% if action == "actionEditPriority" %}
+        <turbo-stream action="update" target="changePriorityFrame">
+            <template>
+                {% include 'task/_task_action_button.html.twig' with {task: task, priorities: priorities, action: action} %}
+            </template
+        </turbo-stream>
+    {% endif %}
+
+    {% if action == "actionEditState" %}
+        <turbo-stream action="update" target="changeStateFrame">
+            <template>
+                {% include 'task/_task_action_button.html.twig' with {task: task, states: states, action: action} %}
+            </template
+        </turbo-stream>
+    {% endif %}
+
+    {% if action == "actionEditAssignee" %}
+        <turbo-stream action="update" target="changeAssigneeFrame">
+            <template>
+                {% include 'task/_task_action_button.html.twig' with {task: task, users: users, action: action} %}
+            </template
+        </turbo-stream>
+    {% endif %}
+{% endif %}
+<turbo-stream action="update" target="flashMessages">
+    <template>
+        {% include "_partials/flash_messages.html.twig" %}
+    </template
+</turbo-stream>
