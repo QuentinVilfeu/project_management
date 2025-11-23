@@ -3,7 +3,7 @@
 {% block title %}{% trans %}States{% endtrans %}{% endblock %}
 
 {% block body %}
-    <div {{ stimulus_controller('modal') }} class="container py-4">
+    <div {{ stimulus_controller('modal') }} class="app-container container">
         <!-- states list target for turbo streams -->
         <div id="statesList">
             {% include 'state/_states_list.html.twig' with {states: states} %}

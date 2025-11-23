@@ -1,6 +1,42 @@
 @import './menu.css';
 @import './roleSelection.css';
 
+body {
+    background: linear-gradient(
+        to top right,
+        #00FFFF,
+        #8A2BE2,
+        #FF007F
+    );
+
+    min-height: 100vh;
+}
+
+/* Conteneur principal de l'application */
+.app-container {
+    background-color: rgba(255, 255, 255, 0.75); 
+    padding: 80px 30px 0px 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    height: 100vh;
+}
+
+.sub-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 10px 40px;
+}
+
+.task-progress {
+    height: 5px;
+}
+
+.divider {
+    width: 80%;
+    height: 2px;
+    background-color: #8080806b;
+    margin: auto;
+}
 
 /* Style spécifique pour les bouton d'action */
 .custom-btn-glow, .custom-btn {

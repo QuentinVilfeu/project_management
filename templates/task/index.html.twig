@@ -3,7 +3,7 @@
 {% block title %}{% trans %}Tasks{% endtrans %}{% endblock %}
 
 {% block body %}
-    <div {{ stimulus_controller('modal') }} class="container py-4">
+    <div {{ stimulus_controller('modal') }} class="app-container container">
         <!-- tasks list target for turbo streams -->
         <div id="tasksList">
             {% include 'task/_tasks_list.html.twig' with {tasks: tasks} %}
