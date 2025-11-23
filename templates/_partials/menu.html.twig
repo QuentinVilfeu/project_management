@@ -20,23 +20,23 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('app_user') }}" data-turbo="true">{% trans %}Users{% endtrans %}</a>
                         </li>
-                    {% endif %}
-                    {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('app_state') }}" data-turbo="true">{% trans %}States{% endtrans %}</a>
                         </li>
-                    {% endif %}
-                    {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('app_priority') }}" data-turbo="true">{% trans %}Priorities{% endtrans %}</a>
                         </li>
                     {% endif %}
+                    {% if is_granted('ROLE_DEVELOPER') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_task') }}" data-turbo="true">{% trans %}Tasks{% endtrans %}</a>
+                        </li>
+                    {% endif %}
                 </ul>
 
-                
-                    <div class="d-flex">
-                        <a href="{{ path('app_logout') }}" class="btn btn-outline-light custom-btn-glow">{% trans %}Logout{% endtrans %}</a>
-                    </div>
+                <div class="d-flex">
+                    <a href="{{ path('app_logout') }}" class="btn btn-outline-light custom-btn-glow">{% trans %}Logout{% endtrans %}</a>
+                </div>
             </div>
         </div>
     </nav>

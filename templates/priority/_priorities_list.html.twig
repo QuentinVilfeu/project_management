@@ -35,7 +35,7 @@
                 <tr>
                     <td>{{ priority.id }}</td>
                     <td>{{ priority.title }}</td>
-                    <td>{{ priority.color }}</td>
+                    <td><span class="badge" style="background-color: {{ priority.color }}">{{ priority.color }}</span></td>
                     <td>{{ priority.weight }}</td>
                     <td>
                         <a id="edit_priority_{{ priority.id }}"

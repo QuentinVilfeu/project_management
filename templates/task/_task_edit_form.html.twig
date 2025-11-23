@@ -1,0 +1,54 @@
+{% form_theme form 'form/custom_errors.html.twig' %}
+
+{{ form_start(form, {'action': path('app_task_edit', {id: task.id})}) }}
+    {{ form_widget(form._token) }}
+    <div class="d-flex justify-content-between">
+        <div class="mb-3 col-6 pe-2">
+            {{ form_label(form.project) }}
+            {{ form_widget(form.project, {'attr': {'class': 'form-select'}}) }}
+            {{ form_errors(form.project) }}
+        </div>
+        <div class="mb-3 col-6 ps-2">
+            {{ form_label(form.assignee) }}
+            {{ form_widget(form.assignee, {'attr': {'class': 'form-select'}}) }}
+            {{ form_errors(form.assignee) }}
+        </div>
+    </div>
+    <div class="mb-3">
+        {{ form_label(form.title) }}
+        {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.title) }}
+    </div>
+    <div class="mb-3">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.description) }}
+    </div>
+    <div class="d-flex justify-content-between">
+        <div class="mb-3 col-6 pe-2">
+            {{ form_label(form.state) }}
+            {{ form_widget(form.state, {'attr': {'class': 'form-select'}}) }}
+            {{ form_errors(form.state) }}
+        </div>
+        <div class="mb-3 col-6 ps-2">
+            {{ form_label(form.priority) }}
+            {{ form_widget(form.priority, {'attr': {'class': 'form-select'}}) }}
+            {{ form_errors(form.priority) }}
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div class="mb-3 col-6 pe-2">
+            {{ form_label(form.initialEndDate) }}
+            {{ form_widget(form.initialEndDate, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.initialEndDate) }}
+        </div>
+        <div class="mb-3 col-6 ps-2">
+            {{ form_label(form.closingDate) }}
+            {{ form_widget(form.closingDate, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.closingDate) }}
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">{% trans %}Update task{% endtrans %}</button>
+    </div>
+{{ form_end(form) }}

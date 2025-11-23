@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Priority;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,7 +24,7 @@ class PriorityType extends AbstractType
                 'label' => $this->translator->trans('Title'),
                 'attr' => ['class' => 'form-control', 'placeholder' => $this->translator->trans('Title')],
             ])
-            ->add('color', TextType::class, [
+            ->add('color', ColorType::class, [
                 'label' => $this->translator->trans('Color'),
                 'attr' => ['class' => 'form-control', 'placeholder' => $this->translator->trans('Color')],
             ])

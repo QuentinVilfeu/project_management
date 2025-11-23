@@ -56,7 +56,7 @@ final class StateController extends AbstractController
         }
 
         // Render the form in a Turbo Stream response
-        $stream = $this->renderView('state/State_new.turbo_stream.html.twig', [
+        $stream = $this->renderView('state/state_new.turbo_stream.html.twig', [
             "form" => $form
         ]);
 

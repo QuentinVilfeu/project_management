@@ -1,0 +1,11 @@
+{% extends '_partials/modal/_template_modal.html.twig' %}
+
+{% block widthModal %}modal-lg{% endblock %}
+
+{% block idModal %}newTaskModal{% endblock %}
+
+{% block idModalTitle %}newTaskModalTitle{% endblock %}
+
+{% block modalTitle %}{% trans %}Add new task{% endtrans %}{% endblock %}
+
+{% block modalBody %}<turbo-frame id="newTaskModalFrame"></turbo-frame>{% endblock %}

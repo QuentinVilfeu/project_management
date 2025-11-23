@@ -1,0 +1,9 @@
+{% extends '_partials/modal/_template_modal.html.twig' %}
+
+{% block idModal %}editTaskModal{% endblock %}
+
+{% block idModalTitle %}editTaskModalTitle{% endblock %}
+
+{% block modalTitle %}{% trans %}Edit task{% endtrans %}{% endblock %}
+
+{% block modalBody %}<turbo-frame id="editTaskModalFrame"></turbo-frame>{% endblock %}

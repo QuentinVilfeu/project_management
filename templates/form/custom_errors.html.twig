@@ -31,3 +31,20 @@
         class="d-none" />
     <label for="{{ id }}" class="{{ label_attr.class|default('') }}">{{ label|trans }}</label>
 {% endblock %}
+
+{% block form_label %}
+    {% if label is same as (false) %}
+        {# Ne rien afficher si le label est explicitement masqué #}
+        {% set label = false %}
+    {% else %}
+        {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' form-label')|trim}) %}
+        
+        {# Affiche le label normalement #}
+        {{- block('form_label_content') -}}
+
+        {# Ajoute l'astérisque rouge si le champ est requis #}
+        {% if required %}
+            <span class="required-asterisk" style="color: red; font-weight: bold;">*</span>
+        {% endif %}
+    {% endif %}
+{% endblock %}

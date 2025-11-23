@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\StateRepository;
+use DH\Auditor\Provider\Doctrine\Auditing\Annotation as Audit;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -10,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: StateRepository::class)]
 #[UniqueEntity(fields: ['title'], message: 'This state already exists')]
 #[UniqueEntity(fields: ['weight'], message: 'This weight already exists')]
+#[Audit\Auditable]
 class State
 {
     #[ORM\Id]
@@ -34,6 +38,22 @@ class State
     #[Assert\NotNull(message: 'Weight should not be null')]
     #[Assert\PositiveOrZero(message: 'Weight must be a positive integer')]
     private ?int $weight = null;
+
+    /**
+     * @var Collection<int, Task>
+     */
+    #[ORM\OneToMany(targetEntity: Task::class, mappedBy: 'state')]
+    private Collection $tasks;
+
+    public function __construct()
+    {
+        $this->tasks = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 
     public function getId(): ?int
     {
@@ -72,6 +92,36 @@ class State
     public function setWeight(int $weight): static
     {
         $this->weight = $weight;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Task>
+     */
+    public function getTasks(): Collection
+    {
+        return $this->tasks;
+    }
+
+    public function addTask(Task $task): static
+    {
+        if (!$this->tasks->contains($task)) {
+            $this->tasks->add($task);
+            $task->setState($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTask(Task $task): static
+    {
+        if ($this->tasks->removeElement($task)) {
+            // set the owning side to null (unless already changed)
+            if ($task->getState() === $this) {
+                $task->setState(null);
+            }
+        }
 
         return $this;
     }

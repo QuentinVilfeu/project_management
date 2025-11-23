@@ -1,0 +1,77 @@
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>{% trans %}Task list{% endtrans %}</h2>
+        <!-- Button triggers modal -->
+        <button
+            {{ stimulus_target('modal', 'openModalButton') }}
+            type="button"
+            class="btn custom-btn"
+            data-bs-toggle="modal"
+            data-bs-target="#newTaskModal"
+            data-route="app_task_new">
+            {% trans %}Add Task{% endtrans %}
+        </button>
+    </div>
+
+    <table id="taskList"
+        class="table table-bordered table-hover" 
+        data-toggle="table"
+        data-pagination="true"
+        data-search="true"
+        data-show-search-clear-button="true"
+        data-filter-control="true"
+        data-locale="{{ app.request.locale|default('fr')|replace({'_':'-'}) }}">
+        <thead>
+            <tr>
+                <th data-sortable="true" data-field="id">Id</th>
+                <th data-sortable="true" data-filter-control="select" data-field="project">{% trans %}Project{% endtrans %}</th>
+                <th data-filter-control="input" data-field="title">{% trans %}Title{% endtrans %}</th>
+                <th data-sortable="true" data-filter-control="select" data-field="assignee">{% trans %}Assignee{% endtrans %}</th>
+                <th data-sortable="true" data-filter-control="select" data-field="priority">{% trans %}Priority{% endtrans %}</th>
+                <th data-sortable="true" data-filter-control="select" data-field="state">{% trans %}State{% endtrans %}</th>
+                <th data-sortable="true" data-field="initialDateEnd">{% trans %}Initial date end{% endtrans %}</th>
+                <th>{% trans %}Actions{% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+                <tr>
+                    <td>{{ task.id }}</td>
+                    <td>{{ task.project }}</td>
+                    <td>{{ task.title }}</td>
+                    <td class="text-center">{{ task.assignee }}</td>
+                    <td class="text-center"><span class="badge" style="background-color: {{ task.priority.color }}">{{ task.priority }}</span></td>
+                    <td class="text-center"><span class="badge" style="background-color: {{ task.state.color }}">{{ task.state }}</span></td>
+                    <td class="bg-{{ task.getDeadlineStatus }} text-center">{{ task.initialEndDate ? task.initialEndDate|date('d-m-Y') : '' }}</td>
+                    
+                    <td>
+                        <a id="edit_task_{{ task.id }}"
+                            class="btn btn-sm btn-outline-primary custom-btn"
+                            title="{{ 'Edit task'|trans }}"
+                            {{ stimulus_target('modal', 'openModalButton') }}
+                            {{ stimulus_action('modal', 'clickActionTable') }}
+                            data-bs-toggle="modal"
+                            data-bs-target="#editTaskModal"
+                            data-route="app_task_edit"
+                            data-parameters="{{ {'id': task.id}|json_encode|e('html_attr') }}">
+                                <!-- pencil icon -->
+                                <i class="bi bi-pencil"></i>
+                        </a>
+                        <a id="delete_task_{{ task.id }}"
+                            class="btn btn-sm btn-outline-danger"
+                            title="{{ 'Delete Task'|trans }}"
+                            {{ stimulus_target('modal', 'openModalButton') }}
+                            {{ stimulus_action('modal', 'clickActionTable') }}
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteTaskModal"
+                            data-route="app_task_delete"
+                            data-parameters="{{ {'id': task.id}|json_encode|e('html_attr') }}">
+                                <!-- trash icon -->
+                                <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
