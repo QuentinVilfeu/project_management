@@ -1,0 +1,17 @@
+{% form_theme form 'form/custom_errors.html.twig' %}
+
+{{ form_start(form, {'action': path('app_task_comment', {id: task.id}), 'attr': {'id': 'commentForm'}}) }}
+    {{ form_widget(form._token) }}
+
+    <div class="mb-3">
+        {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.content) }}
+    </div>
+
+    <div class="modal-footer" {{ stimulus_controller('modal') }}>
+        <button type="submit"
+            class="btn custom-btn"
+            {{ stimulus_action('modal', 'resetForm') }}
+            data-action-form-id="commentForm">{% trans %}Publish{% endtrans %}</button>
+    </div>
+{{ form_end(form, {render_rest: false}) }}

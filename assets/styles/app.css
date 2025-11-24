@@ -15,10 +15,10 @@ body {
 /* Conteneur principal de l'application */
 .app-container {
     background-color: rgba(255, 255, 255, 0.75); 
-    padding: 80px 30px 0px 30px;
+    padding: 80px 30px 30px 30px;
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .sub-container {
@@ -42,7 +42,6 @@ body {
 .custom-btn-glow, .custom-btn {
     color: #ffffff;
     border-color: #6a0dad;
-    box-shadow: 0 0 5px rgba(106, 13, 173, 0.5);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
@@ -54,8 +53,6 @@ body {
     color: #ffffff;
     background-color: #6a0dad;
     border-color: #6a0dad;
-    /* Effet de lueur plus intense au survol */
-    box-shadow: 0 0 15px #6a0dad, 0 0 20px #6a0dad; 
     transform: translateY(-2px); /* Léger soulèvement */
 }
 
@@ -69,4 +66,10 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+}
+
+#commentSection {
+    max-height: 70vh;
+    overflow-y: scroll;
+    margin-top: 20px;
 }

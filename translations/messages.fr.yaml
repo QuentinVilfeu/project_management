@@ -78,5 +78,9 @@ task.deleted: 'La tâche "%title%" a été supprimée.'
 task.closed: 'La tâche "%title%" a été fermée.'
 Assigned to : Assigné à
 Edit: Modifier
+Comments: Commentaires
+task.commented: 'La tâche "%title%" a reçu un nouveau commentaire.'
+Write your comment here ...: Ecrivez votre commentaire ici ...
+Publish: Publier
 '-- Select a project --': '-- Sélectionner un projet --'
 '-- Select a user --': '-- Sélectionner un utilisateur --'

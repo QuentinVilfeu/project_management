@@ -1,0 +1,9 @@
+{% extends '_partials/modal/_template_modal.html.twig' %}
+
+{% block idModal %}commentTaskModal{% endblock %}
+
+{% block idModalTitle %}commentTaskModalTitle{% endblock %}
+
+{% block modalTitle %}{% trans %}Comment task{% endtrans %}{% endblock %}
+
+{% block modalBody %}<turbo-frame id="commentTaskModalFrame"></turbo-frame>{% endblock %}

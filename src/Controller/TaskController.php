@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Priority;
 use App\Entity\State;
 use App\Entity\Task;
 use App\Entity\User;
+use App\Form\CommentType;
 use App\Form\TaskCloseType;
 use App\Form\TaskType;
 use App\Service\Utils;
@@ -37,22 +39,30 @@ final class TaskController extends AbstractController
         ]);
     }
 
-    #[Route('/page/{id}', name: 'app_task_page', methods: ['GET', 'POST'], options: ['expose' => true])]
+    #[Route('/{id}', name: 'app_task_page', methods: ['GET', 'POST'], options: ['expose' => true], requirements: ['id' => '\d+'])]
     public function page(Request $request, Task $task): Response
     {
-        $states = $this->em->getRepository(State::class)->findAll();
+        $states     = $this->em->getRepository(State::class)->findAll();
         $priorities = $this->em->getRepository(Priority::class)->findAll();
-        $users = $this->em->getRepository(User::class)->findAll();
+        $users      = $this->em->getRepository(User::class)->findAll();
+        $comments   = $this->em->getRepository(Task::class)->getFullComments($task);
+
+        // Create inline Form
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
 
         return $this->render('task/task_page.html.twig', [
             'task' => $task,
             'states' => $states,
             'priorities' => $priorities,
             'users' => $users,
+            'comments' => $comments,
+            'form' => $form->createView()
         ]);
     }
 
-    #[Route('/new', name: 'app_task_new', methods: ['GET', 'POST'], options: ['expose' => true])]
+    #[Route('/new', name: 'app_task_new', methods: ['GET', 'POST'], options: ['expose' => true], requirements: ['id' => '\d+'])]
     public function new(Request $request): Response
     {
         // Create the Task
@@ -82,7 +92,7 @@ final class TaskController extends AbstractController
         return $this->utils->turboStreamResponse($stream);
     }
 
-    #[Route('/edit/{id}', name: 'app_task_edit', methods: ['GET', 'POST'], options: ['expose' => true])]
+    #[Route('/{id}/edit', name: 'app_task_edit', methods: ['GET', 'POST'], options: ['expose' => true], requirements: ['id' => '\d+'])]
     public function edit(Request $request, Task $task): Response
     {
         // Create the Form
@@ -110,7 +120,47 @@ final class TaskController extends AbstractController
         return $this->utils->turboStreamResponse($stream);
     }
 
-    #[Route('/close/{id}', name: 'app_task_close', methods: ['GET', 'POST'], options: ['expose' => true])]
+    #[Route('/{id}/comment', name: 'app_task_comment', methods: ['GET', 'POST'], options: ['expose' => true], requirements: ['id' => '\d+'])]
+    public function comment(Request $request, Task $task): Response
+    {
+        $comment = new Comment();
+
+        // Create the Form
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        // Process form submission
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setTask($task);
+            $task->addComment($comment);
+            // Save the Comment
+            $this->em->persist($comment);
+            $this->em->persist($task);
+            $this->em->flush();
+
+            $comments   = $this->em->getRepository(Task::class)->getFullComments($task);
+
+            $this->addFlash('success', $this->translator->trans('task.commented', ['%title%' => $task->getTitle()]));
+            $stream = $this->renderView('task/task.turbo_stream.html.twig', [
+                "action" => 'actionCommentSection',
+                "comments" => $comments,
+                "task" => $task
+            ]);
+
+            return $this->utils->turboStreamResponse($stream);
+        }
+
+        // Render the form in a Turbo Stream response
+        $stream = $this->renderView('task/task.turbo_stream.html.twig', [
+            "action" => "actionComment",
+            "task" => $task,
+            "form" => $form
+        ]);
+
+        return $this->utils->turboStreamResponse($stream);
+    }
+
+    #[Route('/{id}/close', name: 'app_task_close', methods: ['GET', 'POST'], options: ['expose' => true], requirements: ['id' => '\d+'])]
     public function close(Request $request, Task $task): Response
     {
         // Create the Form
@@ -138,7 +188,7 @@ final class TaskController extends AbstractController
         return $this->utils->turboStreamResponse($stream);
     }
 
-    #[Route('/delete/{id}', name: 'app_task_delete', methods: ['GET', 'POST'], options: ['expose' => true])]
+    #[Route('/{id}/delete', name: 'app_task_delete', methods: ['GET', 'POST'], options: ['expose' => true], requirements: ['id' => '\d+'])]
     public function delete(Request $request, Task $task): Response
     {
         if ($request->isMethod('POST')) {
@@ -221,6 +271,4 @@ final class TaskController extends AbstractController
 
         return $this->utils->turboStreamResponse($stream);
     }
-
-
 }

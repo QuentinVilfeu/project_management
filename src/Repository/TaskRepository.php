@@ -16,6 +16,29 @@ class TaskRepository extends ServiceEntityRepository
         parent::__construct($registry, Task::class);
     }
 
+    public function getFullComments(Task $task): array
+    {
+        $conn  = $this->getEntityManager()->getConnection();
+
+        $query = "SELECT
+            t.id AS task_id,
+            c.id AS comment_id,
+            c.content AS content,
+            CONCAT(u.firstname, ' ', u.lastname) AS author,
+            audit.created_at AS created_at
+        FROM task t
+        LEFT JOIN comment c ON c.task_id = t.id
+        LEFT JOIN comment_audit audit ON audit.object_id = c.id
+        LEFT JOIN user u ON u.id = audit.blame_id
+        WHERE t.id = :taskId AND audit.type = 'insert'
+        ORDER BY audit.created_at DESC";
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindValue('taskId', $task->getId());
+
+        return $stmt->executeQuery()->fetchAllAssociative();
+    }
+
     //    /**
     //     * @return Task[] Returns an array of Task objects
     //     */

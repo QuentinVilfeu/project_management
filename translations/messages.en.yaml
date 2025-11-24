@@ -82,5 +82,9 @@ task.edited: 'Task "%title%" has been updated.'
 task.deleted: 'Task "%title%" has been deleted.'
 task.closed: 'Task "%title%" has been closed.'
 Assigned to : Assigned to
+Comments: Comments
+task.commented: 'Task "%title%" has received a new comment.'
+Write your comment here ...: Write your comment here ...
+Publish: Publish
 '-- Select a project --': '-- Select a project --'
 '-- Select a user --': '-- Select a user --'

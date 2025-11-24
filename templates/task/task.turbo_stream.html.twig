@@ -23,6 +23,14 @@
         </turbo-stream>
     {% endif %}
 
+    {% if action == "actionComment" %}
+        <turbo-stream action="update" target="commentTaskModalFrame">
+            <template>
+                {% include 'task/_task_comment_form.html.twig' with {form: form} %}
+            </template
+        </turbo-stream>
+    {% endif %}
+
     {% if action == "actionDelete" %}
         <turbo-stream action="update" target="deleteTaskModalFrame">
             <template>
@@ -52,6 +60,14 @@
             <template>
                 {% include 'task/_task_action_button.html.twig' with {task: task, users: users, action: action} %}
             </template
+        </turbo-stream>
+    {% endif %}
+
+    {% if action == "actionCommentSection" %}
+        <turbo-stream action="update" target="commentSectionFrame">
+            <template>
+                {% include 'task/_task_comment_section.html.twig' with {comments: comments} %}
+            </template>
         </turbo-stream>
     {% endif %}
 {% endif %}

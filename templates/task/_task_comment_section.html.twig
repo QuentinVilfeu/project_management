@@ -1,0 +1,42 @@
+{% if comments is empty %}
+    <p class="text-center mt-2">{% trans %}No comments{% endtrans %}</p>
+{% else %}
+    {% for comment in comments %}
+        <div class="mt-3 d-flex flex-row">
+            <div class="col-9">
+                <p class="m-0 fw-light">{{ comment.created_at|date('d/m/Y') }}</p>
+                <p class="m-0 fw-bold">{{ comment.author }}</p>
+                <p class="m-0">{{ comment.content }}</p>
+            </div>
+            <div class="col">
+                <a id="edit_task_{{ task.id }}"
+                    class="btn btn-sm btn-outline-warning"
+                    title="{{ 'Edit task'|trans }}"
+                    {# {{ stimulus_target('modal', 'openModalButton') }}
+                    {{ stimulus_action('modal', 'clickActionTable') }}
+                    data-bs-toggle="modal"
+                    data-bs-target="#editTaskModal"
+                    data-route="app_task_edit"
+                    data-parameters="{{ {'id': task.id}|json_encode|e('html_attr') }}" #}
+                    >
+                        <i class="bi bi-pencil"></i>
+                </a>
+                <a id="edit_task_{{ task.id }}"
+                    class="btn btn-sm btn-outline-danger"
+                    title="{{ 'Edit task'|trans }}"
+                    {# {{ stimulus_target('modal', 'openModalButton') }}
+                    {{ stimulus_action('modal', 'clickActionTable') }}
+                    data-bs-toggle="modal"
+                    data-bs-target="#editTaskModal"
+                    data-route="app_task_edit"
+                    data-parameters="{{ {'id': task.id}|json_encode|e('html_attr') }}" #}
+                    >
+                        <i class="bi bi-trash"></i>
+                </a>
+            </div>
+        </div>
+        {% if not loop.last %}
+            <div class="divider my-3"></div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
