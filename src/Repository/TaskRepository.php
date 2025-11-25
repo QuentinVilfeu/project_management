@@ -24,6 +24,7 @@ class TaskRepository extends ServiceEntityRepository
             t.id AS task_id,
             c.id AS comment_id,
             c.content AS content,
+            u.id AS author_id,
             CONCAT(u.firstname, ' ', u.lastname) AS author,
             audit.created_at AS created_at
         FROM task t

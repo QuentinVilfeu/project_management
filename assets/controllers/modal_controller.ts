@@ -8,11 +8,7 @@ export default class extends Controller<HTMLElement> {
     declare readonly openModalButtonTargets: HTMLButtonElement[];
 
     connect() {
-        this.openModalButtonTargets.forEach((button) => {
-            button.addEventListener("click", () => {
-                this.startAction(button);
-            });
-        });
+        // console.log("Modal controller connected");
     }
 
     async startAction(button: HTMLButtonElement) {
@@ -54,12 +50,15 @@ export default class extends Controller<HTMLElement> {
      *   <button type="submit"
      *       class="btn btn-primary"
      *       {{ stimulus_action('modal', 'closeModal') }}
+     *       data-action-form-id="commentForm"
      *       data-action-modal-id="commentTaskModal">{% trans %}Publish{% endtrans %}</button>
      * </div>
      * */ 
     closeModal(event: Event) {
-        document.getElementById('commentForm').addEventListener('turbo:submit-end', () => {
-            const target = event.target as HTMLButtonElement;
+        const target = event.target as HTMLButtonElement;
+        let form = document.getElementById(target.dataset.actionFormId) as HTMLFormElement;
+        form.addEventListener('turbo:submit-end', () => {
+            form.innerHTML = '';
             $('#' + target.dataset.actionModalId).modal('hide');
         });
     }

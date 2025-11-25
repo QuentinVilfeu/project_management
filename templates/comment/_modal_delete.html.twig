@@ -1,0 +1,9 @@
+{% extends '_partials/modal/_template_modal.html.twig' %}
+
+{% block idModal %}deleteCommentModal{% endblock %}
+
+{% block idModalTitle %}deleteCommentModalTitle{% endblock %}
+
+{% block modalTitle %}{% trans %}Delete comment{% endtrans %}{% endblock %}
+
+{% block modalBody %}<turbo-frame id="deleteCommentModalFrame"></turbo-frame>{% endblock %}

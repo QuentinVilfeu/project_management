@@ -96,7 +96,9 @@ final class TaskController extends AbstractController
     public function edit(Request $request, Task $task): Response
     {
         // Create the Form
-        $form = $this->createForm(TaskType::class, $task);
+        $form = $this->createForm(TaskType::class, $task, [
+            'action' => 'edit'
+        ]);
         $form->handleRequest($request);
 
         // Process form submission
@@ -267,6 +269,36 @@ final class TaskController extends AbstractController
             "action" => 'actionEditAssignee',
             "task" => $task,
             "users" => $users,
+        ]);
+
+        return $this->utils->turboStreamResponse($stream);
+    }
+
+    #[Route('/action/edit/enddate/{id}/{dateEnd}', name: 'app_task_action_edit_enddate', methods: ['POST'], options: ['expose' => true])]
+    public function actioneditInitialEndDate(Task $task, string $dateEnd): Response
+    {
+        $endDate = new \DateTime($dateEnd);
+        
+        if ($endDate < new \DateTime()) {
+            $this->addFlash('warning', $this->translator->trans('The end date cannot be in the past'));
+
+            $stream = $this->renderView('task/task.turbo_stream.html.twig', [
+                "action" => 'actionEditEndDate',
+                "task" => $task,
+            ]);
+
+            return $this->utils->turboStreamResponse($stream);
+        }
+
+        $task->setInitialEndDate(new \DateTime($dateEnd));
+        $this->em->persist($task);
+        $this->em->flush();
+
+        $this->addFlash('success', $this->translator->trans('task.edited', ['%title%' => $task->getTitle()]));
+
+        $stream = $this->renderView('task/task.turbo_stream.html.twig', [
+            "action" => 'actionEditEndDate',
+            "task" => $task,
         ]);
 
         return $this->utils->turboStreamResponse($stream);

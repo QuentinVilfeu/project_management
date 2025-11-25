@@ -3,7 +3,7 @@
         <h2>{% trans %}Task list{% endtrans %}</h2>
         <!-- Button triggers modal -->
         <button
-            {{ stimulus_target('modal', 'openModalButton') }}
+            {{ stimulus_action('modal', 'clickActionTable') }}
             type="button"
             class="btn custom-btn"
             data-bs-toggle="modal"
@@ -56,7 +56,6 @@
                             <a id="edit_task_{{ task.id }}"
                                 class="btn btn-sm btn-outline-primary custom-btn"
                                 title="{{ 'Edit task'|trans }}"
-                                {{ stimulus_target('modal', 'openModalButton') }}
                                 {{ stimulus_action('modal', 'clickActionTable') }}
                                 data-bs-toggle="modal"
                                 data-bs-target="#editTaskModal"
@@ -67,7 +66,6 @@
                             {# <a id="delete_task_{{ task.id }}"
                                 class="btn btn-sm btn-outline-danger"
                                 title="{{ 'Delete Task'|trans }}"
-                                {{ stimulus_target('modal', 'openModalButton') }}
                                 {{ stimulus_action('modal', 'clickActionTable') }}
                                 data-bs-toggle="modal"
                                 data-bs-target="#deleteTaskModal"
@@ -78,7 +76,6 @@
                             <a id="close_task_{{ task.id }}"
                                 class="btn btn-sm btn-outline-danger"
                                 title="{{ 'Close task'|trans }}"
-                                {{ stimulus_target('modal', 'openModalButton') }}
                                 {{ stimulus_action('modal', 'clickActionTable') }}
                                 data-bs-toggle="modal"
                                 data-bs-target="#closeTaskModal"

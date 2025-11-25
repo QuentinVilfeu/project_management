@@ -24,7 +24,7 @@
                                 <a id="edit_task_{{ task.id }}"
                                     class="dropdown-item"
                                     title="{{ 'Edit task'|trans }}"
-                                    {{ stimulus_target('modal', 'openModalButton') }}
+                                    {{ stimulus_action('modal', 'clickActionTable') }}
                                     data-bs-toggle="modal"
                                     data-bs-target="#editTaskModal"
                                     data-route="app_task_edit"
@@ -36,7 +36,7 @@
                                 <a id="delete_task_{{ task.id }}"
                                     class="dropdown-item text-danger"
                                     title="{{ 'Delete Task'|trans }}"
-                                    {{ stimulus_target('modal', 'openModalButton') }}
+                                    {{ stimulus_action('modal', 'clickActionTable') }}
                                     data-bs-toggle="modal"
                                     data-bs-target="#deleteTaskModal"
                                     data-route="app_task_delete"
@@ -106,7 +106,7 @@
                             <a id="close_task_{{ task.id }}"
                                 class="btn btn-sm btn-outline-primary mt-3"
                                 title="{{ 'Close task'|trans }}"
-                                {{ stimulus_target('modal', 'openModalButton') }}
+                                {{ stimulus_action('modal', 'clickActionTable') }}
                                 data-bs-toggle="modal"
                                 data-bs-target="#closeTaskModal"
                                 data-route="app_task_close"
@@ -117,7 +117,7 @@
                             <a id="close_task_{{ task.id }}"
                                 class="btn btn-sm btn-outline-danger mt-3"
                                 title="{{ 'Close task'|trans }}"
-                                {{ stimulus_target('modal', 'openModalButton') }}
+                                {{ stimulus_action('modal', 'clickActionTable') }}
                                 data-bs-toggle="modal"
                                 data-bs-target="#closeTaskModal"
                                 data-route="app_task_close"
@@ -131,9 +131,27 @@
 
             <div class="d-flex flex-row gap-3 mt-3">
                 <div class="sub-container col-7">
-                    <div class="d-flex flex-row gap-3 p-4">
-                        <h5 class="fw-bold"><i class="bi bi-calendar2-event"></i> {% trans %}Initial end date{% endtrans %} : </h5>
-                        <p class="fw-light">{{ task.initialEndDate|date('d-m-Y') }}</p>
+                    <div class="d-flex flex-row align-items-center gap-3 p-4">
+                        <h5 class="fw-bold m-0"><i class="bi bi-calendar2-event"></i> {% trans %}Initial end date{% endtrans %} : </h5>
+                        <turbo-frame id="changeEndDateFrame">
+                            {% if task.initialEndDate %}
+                                <p class="fw-light m-0">{{ task.initialEndDate|date('d-m-Y') }}</p>
+                            {% else %}
+                                <div {{ stimulus_target('task_action', 'taskAction') }} id="changeEndDate" class="dropdown">
+                                        {% set today = "now"|date("Y-m-d") %}
+                                        <div class="input-group">
+                                            <input type="date"
+                                                class="form-control"
+                                                min="{{ today }}" {# Empêche la sélection de dates passées #}
+                                                {{ stimulus_action('task_action', 'updateEndDate', 'change') }} {# Appel de l'action Stimulus lors du changement #}
+                                                data-action-task-id="{{ task.id }}"
+                                                aria-label="Date de fin de tâche"
+                                            >
+                                        </div>
+                                </div>
+                            {% endif %}
+                        </turbo-frame>
+                        
                     </div>
 
                     <div class="divider"></div>
@@ -177,7 +195,7 @@
                                 class="dropdown-item fs-4"
                                 style="cursor:pointer"
                                 title="{{ 'Comment task'|trans }}"
-                                {{ stimulus_target('modal', 'openModalButton') }}
+                                {{ stimulus_action('modal', 'clickActionTable') }}
                                 data-bs-toggle="modal"
                                 data-bs-target="#commentTaskModal"
                                 data-route="app_task_comment"
@@ -193,7 +211,7 @@
                         </div>
                         <div id="commentSection">
                             <turbo-frame id="commentSectionFrame">
-                                {% include 'task/_task_comment_section.html.twig' with {comments: comments, form: form} %}
+                                {% include 'task/_task_comment_section.html.twig' with {comments: comments} %}
                             </turbo-frame>
                         </div>
                     </div>
@@ -209,4 +227,6 @@
     {% include "task/_modal_close.html.twig" %}
     {% include "task/_modal_comment.html.twig" %}
     {% include "task/_modal_delete.html.twig" %}
+    {% include "comment/_modal_edit.html.twig" %}
+    {% include "comment/_modal_delete.html.twig" %}
 {% endblock %}

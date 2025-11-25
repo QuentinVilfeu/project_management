@@ -1,0 +1,12 @@
+<form method="post" action="{{ path('app_comment_delete', {'id': comment.id}) }}" id="deleteCommentForm">
+    <div class="modal-body">
+        <p>{{ 'Confirm comment deletion'|trans() }}</p>
+    </div>
+    <div class="modal-footer" {{ stimulus_controller('modal') }}>
+        <button type="submit"
+            class="btn btn-danger"
+            {{ stimulus_action('modal', 'closeModal') }}
+            data-action-form-id="deleteCommentForm"
+            data-action-modal-id="deleteCommentModal">{{ 'Delete'|trans }}</button>
+    </div>
+</form>

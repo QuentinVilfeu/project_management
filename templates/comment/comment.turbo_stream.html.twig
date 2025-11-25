@@ -1,0 +1,21 @@
+{% if action == "actionEdit" %}
+    <turbo-stream action="update" target="editCommentModalFrame">
+        <template>
+            {% include 'comment/_comment_edit_form.html.twig' with {form: form} %}
+        </template
+    </turbo-stream>
+{% endif %}
+
+{% if action == "actionDelete" %}
+    <turbo-stream action="update" target="deleteCommentModalFrame">
+        <template>
+            {% include 'comment/_comment_delete_form.html.twig' %}
+        </template
+    </turbo-stream>
+{% endif %}
+
+<turbo-stream action="update" target="flashMessages">
+    <template>
+        {% include "_partials/flash_messages.html.twig" %}
+    </template
+</turbo-stream>

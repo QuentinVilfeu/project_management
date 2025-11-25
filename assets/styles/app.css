@@ -27,6 +27,19 @@ body {
     padding: 10px 40px;
 }
 
+.login-container {
+    width: 50%;
+    min-width: 400px;
+    max-width: 500px;
+    margin: auto;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .task-progress {
     height: 5px;
 }

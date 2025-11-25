@@ -36,6 +36,7 @@ class TaskCloseType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Task::class,
+            'validation_groups' => ['closing'],
         ]);
     }
 }

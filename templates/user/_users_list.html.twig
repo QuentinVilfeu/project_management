@@ -3,7 +3,7 @@
         <h2>{% trans %}User list{% endtrans %}</h2>
         <!-- Button triggers modal -->
         <button
-            {{ stimulus_target('modal', 'openModalButton') }}
+            {{ stimulus_action('modal', 'clickActionTable') }}
             type="button"
             class="btn custom-btn"
             data-bs-toggle="modal"
@@ -42,7 +42,6 @@
                             <a id="edit_user_{{ user.id }}"
                                 class="btn btn-sm btn-outline-primary custom-btn"
                                 title="{{ 'Edit user'|trans }}"
-                                {{ stimulus_target('modal', 'openModalButton') }}
                                 {{ stimulus_action('modal', 'clickActionTable') }}
                                 data-bs-toggle="modal"
                                 data-bs-target="#editUserModal"
@@ -54,7 +53,6 @@
                             <a id="delete_user_{{ user.id }}"
                                 class="btn btn-sm btn-outline-danger"
                                 title="{{ 'Delete User'|trans }}"
-                                {{ stimulus_target('modal', 'openModalButton') }}
                                 {{ stimulus_action('modal', 'clickActionTable') }}
                                 data-bs-toggle="modal"
                                 data-bs-target="#deleteUserModal"

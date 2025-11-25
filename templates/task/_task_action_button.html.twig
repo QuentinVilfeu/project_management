@@ -55,3 +55,22 @@
             {% endfor %}
     </ul>
 {% endif %}
+
+{% if action is defined and action == "actionEditEndDate" %}
+    {% if task.initialEndDate %}
+        <p class="fw-light m-0">{{ task.initialEndDate|date('d-m-Y') }}</p>
+    {% else %}
+        <div {{ stimulus_target('task_action', 'taskAction') }} id="changeEndDate" class="dropdown">
+                {% set today = "now"|date("Y-m-d") %}
+                <div class="input-group">
+                    <input type="date"
+                        class="form-control"
+                        min="{{ today }}" {# Empêche la sélection de dates passées #}
+                        {{ stimulus_action('task_action', 'updateEndDate', 'change') }} {# Appel de l'action Stimulus lors du changement #}
+                        data-action-task-id="{{ task.id }}"
+                        aria-label="Date de fin de tâche"
+                    >
+                </div>
+        </div>
+    {% endif %}
+{% endif %}

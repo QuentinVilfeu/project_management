@@ -30,12 +30,7 @@ class TaskType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 'label' => $this->translator->trans('Description')
-            ])
-            ->add('initialEndDate', DateType::class, [
-                'required' => false,
-                'label' => $this->translator->trans('Initial end date')
-            ])
-            ->add('closingDate', DateType::class, [
+            ])->add('closingDate', DateType::class, [
                 'required' => false,
                 'label' => $this->translator->trans('Closing date')
             ])
@@ -63,12 +58,31 @@ class TaskType extends AbstractType
                 'placeholder' => $this->translator->trans('-- Select a user --')
             ])
         ;
+
+        if ($options['action'] !== 'new') {
+            return;
+        }
+
+        $builder->add('initialEndDate', DateType::class, [
+            'required' => false,
+            'label' => $this->translator->trans('Initial end date')
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Task::class,
+            'action' => 'new',
+            'validation_groups' => function ($form) {
+                $data = $form->getData();
+                // Si c'est une édition (l'entité a un ID), on utilise le groupe 'edit'
+                if ($data && $data->getId()) {
+                    return ['edit'];
+                }
+                // Sinon, on utilise le groupe 'Default'
+                return ['Default'];
+            }
         ]);
     }
 }

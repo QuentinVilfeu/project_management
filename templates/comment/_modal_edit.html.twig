@@ -1,0 +1,11 @@
+{% extends '_partials/modal/_template_modal.html.twig' %}
+
+{% block widthModal %}modal-lg{% endblock %}
+
+{% block idModal %}editCommentModal{% endblock %}
+
+{% block idModalTitle %}editCommentModalTitle{% endblock %}
+
+{% block modalTitle %}{% trans %}Edit Comment{% endtrans %}{% endblock %}
+
+{% block modalBody %}<turbo-frame id="editCommentModalFrame"></turbo-frame>{% endblock %}

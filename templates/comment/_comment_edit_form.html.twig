@@ -1,0 +1,19 @@
+{% form_theme form 'form/custom_errors.html.twig' %}
+
+{{ form_start(form, {'action': path('app_comment_edit', {id: comment.id}), 'attr': {'id': 'editCommentForm'}}) }}
+    {{ form_widget(form._token) }}
+
+    <div class="mb-3">
+        {{ form_label(form.content) }}
+        {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.content) }}
+    </div>
+
+    <div class="modal-footer" {{ stimulus_controller('modal') }}>
+        <button type="submit"
+            class="btn btn-primary"
+            {{ stimulus_action('modal', 'closeModal') }}
+            data-action-form-id="editCommentForm"
+            data-action-modal-id="editCommentModal">{% trans %}Edit comment{% endtrans %}</button>
+    </div>
+{{ form_end(form, {render_rest: false}) }}

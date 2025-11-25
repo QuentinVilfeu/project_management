@@ -19,15 +19,16 @@ class Task
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotNull(message: 'Title should not be null')]
+    #[Assert\NotNull(message: 'Title should not be null', groups: ['Default', 'edit'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotNull(message: 'Description should not be null')]
+    #[Assert\NotNull(message: 'Description should not be null', groups: ['Default', 'edit'])]
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotNull(message: 'Project should not be null', groups: ['Default', 'edit'])]
     private ?Project $project = null;
 
     /**
@@ -38,10 +39,12 @@ class Task
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotNull(message: 'State should not be null', groups: ['Default', 'edit'])]
     private ?State $state = null;
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotNull(message: 'Priority should not be null', groups: ['Default', 'edit'])]
     private ?Priority $priority = null;
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
@@ -56,14 +59,15 @@ class Task
     #[ORM\Column(nullable: true)]
     #[Assert\GreaterThanOrEqual(
         value: 'today',
-        message: 'The end date cannot be in the past'
+        message: 'The end date cannot be in the past',
     )]
     private ?\DateTime $initialEndDate = null;
 
     #[ORM\Column(nullable: true)]
     #[Assert\LessThanOrEqual(
         value: 'today',
-        message: 'The closing date cannot be in the future'
+        message: 'The closing date cannot be in the future',
+        groups: ['closing']
     )]
     private ?\DateTime $closingDate = null;
 

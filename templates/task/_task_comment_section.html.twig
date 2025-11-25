@@ -8,31 +8,31 @@
                 <p class="m-0 fw-bold">{{ comment.author }}</p>
                 <p class="m-0">{{ comment.content }}</p>
             </div>
-            <div class="col">
-                <a id="edit_task_{{ task.id }}"
-                    class="btn btn-sm btn-outline-warning"
-                    title="{{ 'Edit task'|trans }}"
-                    {# {{ stimulus_target('modal', 'openModalButton') }}
-                    {{ stimulus_action('modal', 'clickActionTable') }}
-                    data-bs-toggle="modal"
-                    data-bs-target="#editTaskModal"
-                    data-route="app_task_edit"
-                    data-parameters="{{ {'id': task.id}|json_encode|e('html_attr') }}" #}
-                    >
-                        <i class="bi bi-pencil"></i>
-                </a>
-                <a id="edit_task_{{ task.id }}"
-                    class="btn btn-sm btn-outline-danger"
-                    title="{{ 'Edit task'|trans }}"
-                    {# {{ stimulus_target('modal', 'openModalButton') }}
-                    {{ stimulus_action('modal', 'clickActionTable') }}
-                    data-bs-toggle="modal"
-                    data-bs-target="#editTaskModal"
-                    data-route="app_task_edit"
-                    data-parameters="{{ {'id': task.id}|json_encode|e('html_attr') }}" #}
-                    >
-                        <i class="bi bi-trash"></i>
-                </a>
+            <div class="col ms-auto text-end">
+                {% if comment.author_id == app.user.id or is_granted('ROLE_ADMIN') %}
+                    <a id="edit_comment_{{ comment.comment_id }}"
+                        class="btn btn-sm btn-outline-warning"
+                        title="{{ 'Edit comment'|trans }}"
+                        {{ stimulus_action('modal', 'clickActionTable') }}
+                        data-bs-toggle="modal"
+                        data-bs-target="#editCommentModal"
+                        data-route="app_comment_edit"
+                        data-parameters="{{ {'id': comment.comment_id}|json_encode|e('html_attr') }}"
+                        >
+                            <i class="bi bi-pencil"></i>
+                    </a>
+                    <a id="delete_comment_{{ comment.comment_id }}"
+                        class="btn btn-sm btn-outline-danger"
+                        title="{{ 'Delete comment'|trans }}"
+                        {{ stimulus_action('modal', 'clickActionTable') }}
+                        data-bs-toggle="modal"
+                        data-bs-target="#deleteCommentModal"
+                        data-route="app_comment_delete"
+                        data-parameters="{{ {'id': comment.comment_id}|json_encode|e('html_attr') }}" #}
+                        >
+                            <i class="bi bi-trash"></i>
+                    </a>
+                {% endif %}
             </div>
         </div>
         {% if not loop.last %}

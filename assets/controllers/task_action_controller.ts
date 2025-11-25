@@ -75,4 +75,28 @@ export default class extends Controller<HTMLElement> {
             console.error("Error fetching content:", error);
         });
     }
+
+    updateEndDate(event: Event) {
+        event.preventDefault();
+        const item = event.currentTarget as HTMLInputElement;
+        const value = item.value + " 23:59:59";
+        const url = speRouting.generate('app_task_action_edit_enddate', {
+            id: item.dataset.actionTaskId,
+            dateEnd: value
+        });
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                Accept: "text/vnd.turbo-stream.html",
+            },
+        })
+        .then((response) => response.text())
+        .then((html) => {
+            renderStreamMessage(html);
+        })
+        .catch((error) => {
+            console.error("Error fetching content:", error);
+        });
+    }
 }

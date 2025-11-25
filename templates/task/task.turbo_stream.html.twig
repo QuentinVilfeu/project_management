@@ -63,6 +63,14 @@
         </turbo-stream>
     {% endif %}
 
+    {% if action == "actionEditEndDate" %}
+        <turbo-stream action="update" target="changeEndDateFrame">
+            <template>
+                {% include 'task/_task_action_button.html.twig' with {task: task, action: action} %}
+            </template
+        </turbo-stream>
+    {% endif %}
+
     {% if action == "actionCommentSection" %}
         <turbo-stream action="update" target="commentSectionFrame">
             <template>
