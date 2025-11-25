@@ -40,6 +40,26 @@ class TaskRepository extends ServiceEntityRepository
         return $stmt->executeQuery()->fetchAllAssociative();
     }
 
+    public function getTaskProgression(Task $task)
+    {
+        $conn  = $this->getEntityManager()->getConnection();
+
+        $query = "SELECT
+            t.id AS id,
+            t.initial_end_date AS initial_end_date,
+            t.closing_date AS closing_date,
+            audit.created_at AS created_at
+        FROM task t
+        LEFT JOIN task_audit audit ON audit.object_id = t.id
+        WHERE t.id = :taskId AND audit.type = 'insert'
+        LIMIT 1";
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindValue('taskId', $task->getId());
+
+        return $stmt->executeQuery()->fetchAllAssociative();
+    }
+
     //    /**
     //     * @return Task[] Returns an array of Task objects
     //     */

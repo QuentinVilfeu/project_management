@@ -82,5 +82,13 @@ Comments: Commentaires
 task.commented: 'La tâche "%title%" a reçu un nouveau commentaire.'
 Write your comment here ...: Ecrivez votre commentaire ici ...
 Publish: Publier
+Task closed on: Tâche cloturée le
+Reopen task: Rouvrir la tâche
+task.reopened: 'Tâche "%title%" a été réouverte.'
+Edit comment: Editer le commentaire
+Delete comment: Supprimer le commentaire
+Confirm comment deletion: Confirmer la suppression du commentaire
+comment.deleted: 'Le commentaire a été supprimé'
+The end date cannot be in the past: La date de fin ne peut pas être dans le passé
 '-- Select a project --': '-- Sélectionner un projet --'
 '-- Select a user --': '-- Sélectionner un utilisateur --'

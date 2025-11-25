@@ -86,5 +86,13 @@ Comments: Comments
 task.commented: 'Task "%title%" has received a new comment.'
 Write your comment here ...: Write your comment here ...
 Publish: Publish
+Task closed on: Task closed on
+Reopen task: Reopen task
+task.reopened: 'Task "%title%" has been reopened.'
+Edit Comment: Edit Comment
+Delete comment: Delete comment
+Confirm comment deletion: Confirm comment deletion
+comment.deleted: 'Comment has been deleted'
+The end date cannot be in the past: The end date cannot be in the past
 '-- Select a project --': '-- Select a project --'
 '-- Select a user --': '-- Select a user --'

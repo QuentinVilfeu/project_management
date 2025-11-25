@@ -3,6 +3,8 @@ twig:
     form_themes:
         - 'bootstrap_5_layout.html.twig'
         - 'form/custom_errors.html.twig'
+    globals:
+        task_service: '@App\Service\TaskService'
 
 when@test:
     twig:
