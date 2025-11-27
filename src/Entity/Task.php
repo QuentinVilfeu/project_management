@@ -56,7 +56,7 @@ class Task
      * @var Collection<int, self>
      */
     #[ORM\ManyToMany(targetEntity: self::class)]
-    private Collection $taskLinked;
+    private Collection $taskRelated;
 
     #[ORM\Column(nullable: true)]
     #[Assert\GreaterThanOrEqual(
@@ -76,7 +76,7 @@ class Task
     public function __construct()
     {
         $this->comments = new ArrayCollection();
-        $this->taskLinked = new ArrayCollection();
+        $this->taskRelated = new ArrayCollection();
     }
 
     public function __toString()
@@ -194,23 +194,23 @@ class Task
     /**
      * @return Collection<int, self>
      */
-    public function getTaskLinked(): Collection
+    public function getTaskRelated(): Collection
     {
-        return $this->taskLinked;
+        return $this->taskRelated;
     }
 
-    public function addTaskLinked(self $taskLinked): static
+    public function addTaskRelated(self $taskRelated): static
     {
-        if (!$this->taskLinked->contains($taskLinked)) {
-            $this->taskLinked->add($taskLinked);
+        if (!$this->taskRelated->contains($taskRelated)) {
+            $this->taskRelated->add($taskRelated);
         }
 
         return $this;
     }
 
-    public function removeTaskLinked(self $taskLinked): static
+    public function removeTaskRelated(self $taskRelated): static
     {
-        $this->taskLinked->removeElement($taskLinked);
+        $this->taskRelated->removeElement($taskRelated);
 
         return $this;
     }

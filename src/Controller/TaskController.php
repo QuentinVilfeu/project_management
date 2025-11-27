@@ -10,6 +10,7 @@ use App\Entity\User;
 use App\Form\CommentType;
 use App\Form\TaskCloseType;
 use App\Form\TaskType;
+use App\Repository\TaskRepository;
 use App\Service\Utils;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -302,5 +303,66 @@ final class TaskController extends AbstractController
         ]);
 
         return $this->utils->turboStreamResponse($stream);
+    }
+
+    #[Route('/search', name: 'task_search_stream', methods: ['GET'], options: ['expose' => true])]
+    public function searchTasks(Request $request, TaskRepository $taskRepository): Response
+    {
+        // Récupérer le terme de recherche (ce qui suit le '#')
+        $query = $request->query->get('q', '');
+
+        // Exclure potentiellement la tâche courante (celle à laquelle on ajoute des frères/soeurs)
+        $currentTaskId = $request->query->getInt('currentTaskId'); 
+
+        // Recherche des tâches dans la base de données
+        $tasks = $taskRepository->findRelatedTask($query, $currentTaskId);
+
+        $stream = $this->renderView('task/task.turbo_stream.html.twig', [
+            'action' => 'actionAddTaskRelated',
+            'tasks' => $tasks,
+            'target_id' => 'task_suggestions', 
+        ]);
+
+        return $this->utils->turboStreamResponse($stream);
+    }
+
+    #[Route('/{id}/related', name: 'task_save_related', methods: ['POST'], options: ['expose' => true])]
+    public function saveRelatedTasks(Task $task, Request $request, TaskRepository $taskRepository): Response
+    {
+        if (!$task) {
+            throw $this->createNotFoundException('Tâche principale non trouvée.');
+        }
+
+        $relatedIdsString = $request->request->get('related_task_ids');
+        $relatedIds = array_filter(explode(',', $relatedIdsString));
+    
+        // 1. Récupérer les entités Task correspondant aux IDs
+        $relatedTasks = $taskRepository->findBy(['id' => $relatedIds]);
+
+        // 2. Suppression des liens existants non soumis
+        $tasksToRemove = [];
+        foreach ($task->getTaskRelated() as $relatedTask) {
+            // Vérifier si la tâche liée ACTUELLE (déjà liée) n'est PAS dans la liste des IDs soumise
+            if (!in_array($relatedTask->getId(), $relatedIds)) {
+                $tasksToRemove[] = $relatedTask;
+            }
+        }
+
+        foreach ($tasksToRemove as $taskToRemove) {
+            // Utiliser la méthode que vous avez spécifiée
+            $task->removeTaskRelated($taskToRemove); 
+        }
+
+        // 3. Mettre à jour la relation Many-to-Many dans votre entité Task
+        foreach ($relatedTasks as $relatedTask) {
+            // Assurez-vous d'implémenter une méthode pour lier les tâches
+            $task->addTaskRelated($relatedTask); 
+        }
+
+        $this->em->flush($task);
+
+        $this->addFlash('success', 'Liens de tâches enregistrés !');
+
+        return $this->redirectToRoute('app_task_page', ['id' => $task->getId()]);
     }
 }

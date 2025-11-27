@@ -5,6 +5,7 @@
 {% block body %}
     <div {{ stimulus_controller('modal') }} class="app-container container">
         <div {{ stimulus_controller('task_action') }} >
+            {# Header #}
             <div class="sub-container">
                 {# Titre et boutons d'action #}
                 <div class="d-flex justify-content-between align-items-center">
@@ -131,8 +132,11 @@
                 </div>
             </div>
 
-            <div class="d-flex flex-row gap-3 mt-3">
-                <div class="sub-container col-7">
+            {# Content #}
+            <div class="d-flex flex-row justify-content-between mt-3">
+                {# General info section #}
+                <div id="left-section" class="sub-container">
+                    {# Initial end date #}
                     <div class="d-flex flex-row align-items-center gap-3 p-4">
                         <h5 class="fw-bold m-0"><i class="bi bi-calendar2-event"></i> {% trans %}Initial end date{% endtrans %} : </h5>
                         <turbo-frame id="changeEndDateFrame">
@@ -158,6 +162,7 @@
 
                     <div class="divider"></div>
 
+                    {# Assignee #}
                     <div class="d-flex align-items-center gap-3 p-4">
                         <h5 class="fw-bold m-0"><i class="bi bi-person-check"></i> {% trans %}Assigned to{% endtrans %}</h5>
                         <div {{ stimulus_target('task_action', 'taskAction') }} id="changeAssignee" class="dropdown">
@@ -184,39 +189,84 @@
 
                     <div class="divider"></div>
 
+                    {# Description #}
                     <div class="p-4">
                         <h5 class="fw-bold"><i class="bi bi-textarea-t"></i> {% trans %}Description{% endtrans %}</h5>
                         <p class="fw-light">{{ task.description|nl2br }}</p>
                     </div>
+
+                    <div class="divider"></div>
                 </div>
-                <div class="sub-container col">
-                    <div class="d-flex flex-row justify-content-between align-items-center">
-                        <h5 class="fw-bold m-0"><i class="bi bi-chat-quote"></i> {% trans %}Comments{% endtrans %}</h5>
-                        {# <div>
-                            <a id="add_comment_task_{{ task.id }}"
-                                class="dropdown-item fs-4"
-                                style="cursor:pointer"
-                                title="{{ 'Comment task'|trans }}"
-                                {{ stimulus_action('modal', 'clickActionTable') }}
-                                data-bs-toggle="modal"
-                                data-bs-target="#commentTaskModal"
-                                data-route="app_task_comment"
-                                data-parameters="{{ {'id': task.id}|json_encode|e('html_attr') }}">
-                                    <i class="bi bi-plus-square"></i>
-                            </a>
-                        </div> #}
+                
+                {# Right section #}
+                <div id="right-section" class="d-flex flex-column gap-3">
+                    {# Comment section #}
+                    <div class="sub-container d-none" id="comment-section">
+                        <div class="d-flex flex-row justify-content-between align-items-center">
+                            <h5 class="fw-bold m-0"><i class="bi bi-chat-quote"></i> {% trans %}Comments{% endtrans %}</h5>
+                        </div>
+
+                        <div class="py-3">
+                            <div>
+                                {% include 'task/_task_comment_form_inline.html.twig' with {form: form} %}
+                            </div>
+                            <div id="commentSection">
+                                <turbo-frame id="commentSectionFrame">
+                                    {% include 'task/_task_comment_section.html.twig' with {comments: comments} %}
+                                </turbo-frame>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="py-3">
-                        <div>
-                            {% include 'task/_task_comment_form_inline.html.twig' with {form: form} %}
+                    {# Task related section #}
+                    <div class="sub-container d-none" id="task-related">
+                        <div class="d-flex flex-row justify-content-between align-items-center">
+                            <h5 class="fw-bold m-0"><i class="bi bi-card-checklist"></i> {% trans %}Related tasks{% endtrans %}</h5>
                         </div>
-                        <div id="commentSection">
-                            <turbo-frame id="commentSectionFrame">
-                                {% include 'task/_task_comment_section.html.twig' with {comments: comments} %}
-                            </turbo-frame>
+                        
+                        <div class="py-3">
+                            {% for taskRelated in task.taskRelated %}
+                                <div class="suggestion-item my-2" data-task-id="{{ task.id }}" data-task-title="{{ task.title }}" data-action="click->task#select" data-task-target="suggestion">
+                                    <small>#{{ taskRelated.id }}</small>
+                                    - **{{ taskRelated.title }}**
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="accordion mt-3" id="accordionTaskRelated">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTaksRelated" aria-controls="collapseTaksRelated">
+                                        {% trans %}Update tasks related{% endtrans %}
+                                    </button>
+                                </h2>
+                                <div id="collapseTaksRelated" class="accordion-collapse collapse" data-bs-parent="#accordionTaskRelated">
+                                    <div class="accordion-body">
+                                        {% include 'task/new_related_task.html.twig' %}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div {{ stimulus_controller('tab_binder') }} class="tab-binder-wrapper">
+                <div class="tab-binder"
+                    {{ stimulus_action('tab_binder', 'toggleTabBinder', 'click') }}
+                    data-tab-binder-target="comment-section">
+                        <i class="bi bi-chat-quote"></i>
+                        <span class="text">{% trans %}Comments{% endtrans %}</span>
+                </div>
+
+                <div class="tab-binder"
+                    {{ stimulus_action('tab_binder', 'toggleTabBinder', 'click') }}
+                    data-tab-binder-target="task-related">
+                        <i class="bi bi-card-checklist"></i>
+                        {% if task.taskRelated|length > 0 %}
+                            <span class="badge bg-danger">{{ task.taskRelated|length }}</span>
+                        {% endif %}
+                        <span class="text">{% trans %}Related tasks{% endtrans %}</span>
                 </div>
             </div>
         </div>

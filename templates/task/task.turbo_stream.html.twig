@@ -1,89 +1,95 @@
 {% if action is defined %}
-    {% if action == "actionNew" %}
-        <turbo-stream action="update" target="newTaskModalFrame">
-            <template>
-                {% include 'task/_task_new_form.html.twig' with {form: form} %}
-            </template
-        </turbo-stream>
-    {% endif %}
+	{% if action == "actionNew" %}
+		<turbo-stream action="update" target="newTaskModalFrame">
+			<template>
+				{% include 'task/_task_new_form.html.twig' with {form: form} %}
+			</template>
+		</turbo-stream>
+	{% endif %}
 
-    {% if action == "actionEdit" %}
-        <turbo-stream action="update" target="editTaskModalFrame">
-            <template>
-                {% include 'task/_task_edit_form.html.twig' with {form: form} %}
-            </template
-        </turbo-stream>
-    {% endif %}
+	{% if action == "actionEdit" %}
+		<turbo-stream action="update" target="editTaskModalFrame">
+			<template>
+				{% include 'task/_task_edit_form.html.twig' with {form: form} %}
+			</template>
+		</turbo-stream>
+	{% endif %}
 
-    {% if action == "actionClose" %}
-        <turbo-stream action="update" target="closeTaskModalFrame">
-            <template>
-                {% include 'task/_task_close_form.html.twig' with {form: form} %}
-            </template
-        </turbo-stream>
-    {% endif %}
+	{% if action == "actionClose" %}
+		<turbo-stream action="update" target="closeTaskModalFrame">
+			<template>
+				{% include 'task/_task_close_form.html.twig' with {form: form} %}
+			</template>
+		</turbo-stream>
+	{% endif %}
 
-    {% if action == "actionComment" %}
-        <turbo-stream action="update" target="commentTaskModalFrame">
-            <template>
-                {% include 'task/_task_comment_form.html.twig' with {form: form} %}
-            </template
-        </turbo-stream>
-    {% endif %}
+	{% if action == "actionComment" %}
+		<turbo-stream action="update" target="commentTaskModalFrame">
+			<template>
+				{% include 'task/_task_comment_form.html.twig' with {form: form} %}
+			</template>
+		</turbo-stream>
+	{% endif %}
 
-    {% if action == "actionDelete" %}
-        <turbo-stream action="update" target="deleteTaskModalFrame">
-            <template>
-                {% include 'task/_task_delete_form.html.twig' %}
-            </template
-        </turbo-stream>
-    {% endif %}
+	{% if action == "actionDelete" %}
+		<turbo-stream action="update" target="deleteTaskModalFrame">
+			<template>
+				{% include 'task/_task_delete_form.html.twig' %}
+			</template>
+		</turbo-stream>
+	{% endif %}
 
-    {% if action == "actionEditPriority" %}
-        <turbo-stream action="update" target="changePriorityFrame">
-            <template>
-                {% include 'task/_task_action_button.html.twig' with {task: task, priorities: priorities, action: action} %}
-            </template
-        </turbo-stream>
-    {% endif %}
+	{% if action == "actionEditPriority" %}
+		<turbo-stream action="update" target="changePriorityFrame">
+			<template>
+				{% include 'task/_task_action_button.html.twig' with {task: task, priorities: priorities, action: action} %}
+			</template>
+		</turbo-stream>
+	{% endif %}
 
-    {% if action == "actionEditState" %}
-        <turbo-stream action="update" target="changeStateFrame">
-            <template>
-                {% include 'task/_task_action_button.html.twig' with {task: task, states: states, action: action} %}
-            </template
-        </turbo-stream>
-        <turbo-stream action="update" target="changeProgressFrame">
-            <template>
-                <div class="progress task-progress" role="progressbar" aria-label="Task progress" aria-valuenow="{{ task_service.getProgression(task) }}" aria-valuemin="0" aria-valuemax="100">
-                    <div class="progress-bar" style="background-color:{{ task.state.color }};width:{{ task_service.getProgression(task) }}%"></div>
-                </div>
-            </template
-        </turbo-stream>
-    {% endif %}
+	{% if action == "actionEditState" %}
+		<turbo-stream action="update" target="changeStateFrame">
+			<template>
+				{% include 'task/_task_action_button.html.twig' with {task: task, states: states, action: action} %}
+			</template>
+		</turbo-stream>
+	{% endif %}
 
-    {% if action == "actionEditAssignee" %}
-        <turbo-stream action="update" target="changeAssigneeFrame">
-            <template>
-                {% include 'task/_task_action_button.html.twig' with {task: task, users: users, action: action} %}
-            </template
-        </turbo-stream>
-    {% endif %}
+	{% if action == "actionEditProgress" %}
+		<turbo-stream action="update" target="changeProgressFrame">
+			<template>
+				<div class="progress task-progress" role="progressbar" aria-label="Task progress" aria-valuenow="{{ task_service.getProgression(task) }}" aria-valuemin="0" aria-valuemax="100">
+					<div class="progress-bar" style="background-color:{{ task.state.color }};width:{{ task_service.getProgression(task) }}%"></div>
+				</div>
+			</template>
+		</turbo-stream>
+	{% endif %}
 
-    {% if action == "actionEditEndDate" %}
-        <turbo-stream action="update" target="changeEndDateFrame">
-            <template>
-                {% include 'task/_task_action_button.html.twig' with {task: task, action: action} %}
-            </template
-        </turbo-stream>
-        <turbo-stream action="update" target="changeProgressFrame">
-            <template>
-                <div class="progress task-progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                    <div class="progress-bar w-75" style="background-color:{{ task.state.color }}"></div>
-                </div>
-            </template
-        </turbo-stream>
-    {% endif %}
+	{% if action == "actionEditAssignee" %}
+		<turbo-stream action="update" target="changeAssigneeFrame">
+			<template>
+				{% include 'task/_task_action_button.html.twig' with {task: task, users: users, action: action} %}
+			</template>
+		</turbo-stream>
+	{% endif %}
+
+	{% if action == "actionEditEndDate" %}
+		<turbo-stream action="update" target="changeEndDateFrame">
+			<template>
+				{% include 'task/_task_action_button.html.twig' with {task: task, action: action} %}
+			</template>
+		</turbo-stream>
+	{% endif %}
+
+	{% if action == "actionEditProgress" %}
+		<turbo-stream action="update" target="changeProgressFrame">
+			<template>
+				<div class="progress task-progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+					<div class="progress-bar w-75" style="background-color:{{ task.state.color }}"></div>
+				</div>
+			</template>
+		</turbo-stream>
+	{% endif %}
 
     {% if action == "actionCommentSection" %}
         <turbo-stream action="update" target="commentSectionFrame">

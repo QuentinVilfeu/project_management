@@ -1,0 +1,39 @@
+<div class="task-form-container" data-controller="task" data-task-search-url-value="{{ path('task_search_stream') }}" data-task-current-task-id-value="{{ task.id|default(0) }}">
+	<form action="{{ path('task_save_related', {id:task.id}) }}" method="POST">
+
+		<div class="form-group">
+			<label for="related-tasks-input">{% trans %}Add task (# to search){% endtrans %}
+				:</label>
+			<input
+			type="text" id="related-tasks-input" class="form-control" placeholder="{{ 'Enter # followed by task name'|trans }}" data-task-target="input" data-action="input->task#search">
+
+			{# Ce champ caché va contenir les IDs des tâches sélectionnées (la valeur réelle soumise) #}
+			<input type="hidden" name="related_task_ids" id="related-task-ids-hidden" value="{% for relatedTask in task.taskRelated %}{{ relatedTask.id }}{% if not loop.last %},{% endif %}{% endfor %}" data-task-target="hiddenInput">
+		</div>
+
+
+		{# 1. Conteneur pour afficher les Tâches déjà sélectionnées #}
+		<div id="selected_tasks_display" class="my-3 p-2 border rounded bg-light" data-task-target="display">
+			<p>{% trans %}Selected tasks{% endtrans %}
+				:
+				<span id="selected_count" data-task-target="count">({{ task.taskRelated|length }})</span>
+			</p>
+			{% for relatedTask in task.taskRelated %}
+				<span class="badge bg-primary me-2 mb-1" data-task-id="{{ relatedTask.id }}" data-task-title="{{ relatedTask.title }}">
+					{{ relatedTask.id }}
+					<a type="button" data-action="click->task#remove" data-task-id="{{ relatedTask.id }}">
+						<i class="bi bi-x-square"></i>
+					</a>
+				</span>
+			{% endfor %}
+			{# Les badges des tâches sélectionnées seront ajoutés ici par le JS #}
+		</div>
+
+		{# 2. Conteneur pour les suggestions Turbo Stream #}
+		<div class="suggestions-container mt-1">
+			<turbo-frame id="task_suggestions" data-task-target="suggestions"></turbo-frame>
+		</div>
+
+		<button type="submit" class="btn btn-primary mt-3" data-turbo="false">{% trans %}Save{% endtrans %}</button>
+	</form>
+</div>

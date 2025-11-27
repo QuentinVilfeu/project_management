@@ -81,8 +81,59 @@ body {
     justify-content: space-evenly;
 }
 
+/* ***************** */
+/* Page Task */
+/* ***************** */
 #commentSection {
     max-height: 70vh;
     overflow-y: scroll;
     margin-top: 20px;
 }
+
+.suggestion-item {
+    cursor: pointer;
+    border: solid #6a0dad6b 1px;
+    border-radius: 15px;
+    padding: 5px;
+    background-color: #6a0dad6b;
+    color: white;
+}
+
+.suggestion-item:hover {
+    background-color: #6a0dad;
+}
+
+#left-section {
+    width: 100%;
+}
+
+.tab-binder-wrapper {
+    position: fixed;
+    top: 100px;
+    transform: translateX(100%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tab-binder {
+    cursor: pointer;
+    background: #ffffff;
+    border-radius: 0 5px 5px 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.tab-binder.active {
+    background-color: #6a0dad;
+    color: white;
+}
+
+.tab-binder span.text {
+    writing-mode: vertical-rl;
+    margin: 10px 0;
+}
+/* ***************** */
+/* FIN Page Task */
+/* ***************** */

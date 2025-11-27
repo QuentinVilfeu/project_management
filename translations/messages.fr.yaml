@@ -90,5 +90,6 @@ Delete comment: Supprimer le commentaire
 Confirm comment deletion: Confirmer la suppression du commentaire
 comment.deleted: 'Le commentaire a été supprimé'
 The end date cannot be in the past: La date de fin ne peut pas être dans le passé
+Tasks related: Tâches liées
 '-- Select a project --': '-- Sélectionner un projet --'
 '-- Select a user --': '-- Sélectionner un utilisateur --'

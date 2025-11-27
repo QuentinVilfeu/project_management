@@ -6,7 +6,7 @@
             <div class="col-9">
                 <p class="m-0 fw-light">{{ comment.created_at|date('d/m/Y') }}</p>
                 <p class="m-0 fw-bold">{{ comment.author }}</p>
-                <p class="m-0">{{ comment.content }}</p>
+                <p class="m-0">{{ comment.content|nl2br }}</p>
             </div>
             <div class="col ms-auto text-end">
                 {% if comment.author_id == app.user.id or is_granted('ROLE_ADMIN') %}

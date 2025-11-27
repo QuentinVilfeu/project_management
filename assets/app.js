@@ -17,21 +17,21 @@ import './styles/app.css';
  * Note: Cette fonction suppose que 'bootstrap' est disponible globalement.
  */
 function closeAlert(alertElement) {
-    const delay = 5000; 
-    
+    const delay = 5000;
+
     // Si l'élément a déjà un timer, on s'arrête (voir 2. Améliorations)
     if (alertElement.dataset.timerInitialized) {
-        return; 
+        return;
     }
 
     alertElement.dataset.timerInitialized = 'true';
-    
-    setTimeout(function() {
+
+    setTimeout(function () {
         // Utilisation de l'API Bootstrap pour une fermeture propre
         // Note : Si vous n'utilisez pas TypeScript/ESM, utilisez window.bootstrap
         const alertInstance = bootstrap.Alert.getInstance(alertElement) || new bootstrap.Alert(alertElement);
         alertInstance.close();
-        
+
     }, delay);
 }
 
@@ -40,10 +40,10 @@ function closeAlert(alertElement) {
  */
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Définir le conteneur à observer (souvent l'endroit où les messages flash sont injectés)
-    const targetNode = document.body; 
+    const targetNode = document.body;
 
     // 2. Options de l'observateur
-    const config = { 
+    const config = {
         childList: true, // Observer l'ajout/suppression d'enfants directs
         subtree: true    // Observer les changements dans toute l'arborescence
     };
@@ -53,16 +53,16 @@ document.addEventListener('DOMContentLoaded', () => {
         for (const mutation of mutationsList) {
             // Nous nous intéressons uniquement aux nœuds qui ont été ajoutés
             if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-                
+
                 mutation.addedNodes.forEach(node => {
                     // Vérifier si le nœud ajouté est un élément HTML
                     if (node instanceof HTMLElement) {
-                        
+
                         // Si le nœud ajouté correspond à notre alerte
                         if (node.classList.contains('alert-autoclose')) {
                             closeAlert(node);
                         }
-                        
+
                         // S'assurer de vérifier également les enfants du nœud ajouté
                         node.querySelectorAll('.alert-autoclose').forEach(alertElement => {
                             closeAlert(alertElement);
@@ -79,4 +79,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 5. Exécuter une première fois la fonction pour les alertes déjà présentes
     document.querySelectorAll('.alert-autoclose').forEach(closeAlert);
-});
+});    

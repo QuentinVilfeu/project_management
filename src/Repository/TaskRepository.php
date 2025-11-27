@@ -60,6 +60,23 @@ class TaskRepository extends ServiceEntityRepository
         return $stmt->executeQuery()->fetchAllAssociative();
     }
 
+    public function findRelatedTask(string $search, int $taskId): array
+    {
+        $conn  = $this->getEntityManager()->getConnection();
+
+        $query = "SELECT *
+            FROM task t
+            WHERE t.id != :taskId AND t.id not in (
+                SELECT tt.task_target FROM task_task tt WHERE tt.task_source = :taskId
+            ) AND t.title LIKE :search";
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindValue('taskId', $taskId);
+        $stmt->bindValue('search', "%" . $search . "%");
+
+        return $stmt->executeQuery()->fetchAllAssociative();
+    }
+
     //    /**
     //     * @return Task[] Returns an array of Task objects
     //     */

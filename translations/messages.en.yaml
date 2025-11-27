@@ -94,5 +94,6 @@ Delete comment: Delete comment
 Confirm comment deletion: Confirm comment deletion
 comment.deleted: 'Comment has been deleted'
 The end date cannot be in the past: The end date cannot be in the past
+Tasks related: Tasks related
 '-- Select a project --': '-- Select a project --'
 '-- Select a user --': '-- Select a user --'
