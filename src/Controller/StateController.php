@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\State;
 use App\Form\StateType;
+use App\Service\StateService;
 use App\Service\Utils;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +19,8 @@ final class StateController extends AbstractController
     public function __construct(
         private EntityManagerInterface $em,
         private Utils $utils,
-        private TranslatorInterface $translator
+        private TranslatorInterface $translator,
+        private StateService $stateService
     )
     {
     }
@@ -46,6 +48,7 @@ final class StateController extends AbstractController
 
         // Process form submission
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->stateService->removeAllClosingStateBool();
             // Save the State
             $this->em->persist($state);
             $this->em->flush();
@@ -73,6 +76,7 @@ final class StateController extends AbstractController
 
         // Process form submission
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->stateService->removeAllClosingStateBool();
             // Save the State
             $this->em->persist($state);
             $this->em->flush();

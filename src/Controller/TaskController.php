@@ -12,6 +12,7 @@ use App\Form\TaskCloseType;
 use App\Form\TaskType;
 use App\Repository\TaskRepository;
 use App\Service\Utils;
+use App\Service\StateService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +26,7 @@ final class TaskController extends AbstractController
     public function __construct(
         private EntityManagerInterface $em,
         private Utils $utils,
+        private StateService $stateService,
         private TranslatorInterface $translator
     )
     {
@@ -43,8 +45,8 @@ final class TaskController extends AbstractController
     #[Route('/{id}', name: 'app_task_page', methods: ['GET', 'POST'], options: ['expose' => true], requirements: ['id' => '\d+'])]
     public function page(Request $request, Task $task): Response
     {
-        $states     = $this->em->getRepository(State::class)->findAll();
-        $priorities = $this->em->getRepository(Priority::class)->findAll();
+        $states     = $this->em->getRepository(State::class)->findBy([], ['weight' => 'ASC']);
+        $priorities = $this->em->getRepository(Priority::class)->findBy([], ['weight' => 'ASC']);
         $users      = $this->em->getRepository(User::class)->findAll();
         $comments   = $this->em->getRepository(Task::class)->getFullComments($task);
 
@@ -98,7 +100,8 @@ final class TaskController extends AbstractController
     {
         // Create the Form
         $form = $this->createForm(TaskType::class, $task, [
-            'action' => 'edit'
+            'action' => 'edit',
+            'task' => $task
         ]);
         $form->handleRequest($request);
 
@@ -172,6 +175,8 @@ final class TaskController extends AbstractController
 
         // Process form submission
         if ($form->isSubmitted() && $form->isValid()) {
+            $task->setState($this->stateService->getClosingState());
+            $task->setPriority(null);
             // Save the Task
             $this->em->persist($task);
             $this->em->flush();

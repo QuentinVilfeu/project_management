@@ -45,6 +45,9 @@ class State
     #[ORM\OneToMany(targetEntity: Task::class, mappedBy: 'state')]
     private Collection $tasks;
 
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private bool $isClosingState;
+
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
@@ -122,6 +125,18 @@ class State
                 $task->setState(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsClosingState(): ?bool
+    {
+        return $this->isClosingState;
+    }
+
+    public function setIsClosingState(bool $isClosingState): static
+    {
+        $this->isClosingState = $isClosingState;
 
         return $this;
     }

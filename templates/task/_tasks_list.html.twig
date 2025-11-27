@@ -41,7 +41,7 @@
                         <td>{{ task.project }}</td>
                         <td>{{ task.title }}</td>
                         <td class="text-center">{{ task.assignee }}</td>
-                        <td class="text-center"><span class="badge" style="background-color: {{ task.priority.color }}">{{ task.priority }}</span></td>
+                        <td class="text-center">{% if task.priority %}<span class="badge" style="background-color: {{ task.priority.color }}">{{ task.priority }}</span>{% endif %}</td>
                         <td class="text-center"><span class="badge" style="background-color: {{ task.state.color }}">{{ task.state }}</span></td>
                         <td class="bg-{{ task.getDeadlineStatus }} text-center">{{ task.initialEndDate ? task.initialEndDate|date('d-m-Y') : '' }}</td>
                         <td class="text-center">{{ task.closingDate ? task.closingDate|date('d-m-Y') : '' }}</td>

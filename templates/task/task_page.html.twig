@@ -61,45 +61,50 @@
                 {# Boutons d'action #}
                 <div class="d-flex justify-content-between">
                     <div class="d-flex flex-row gap-2">
-                        <div {{ stimulus_target('task_action', 'taskAction') }} id="changePriority" class="inpageAction dropdown mt-3">
-                            <turbo-frame id="changePriorityFrame">
-                                <button class="btn dropdown-toggle text-white" 
-                                        type="button" 
-                                        id="changePriorityButton" 
-                                        data-bs-toggle="dropdown" 
-                                        aria-expanded="false"
-                                        style="background-color:{{ task.priority.color }}">
-                                    {{ task.priority.title }}
-                                </button>
+                        {% if task.priority is not null %}
+                            <div {{ stimulus_target('task_action', 'taskAction') }} id="changePriority" class="inpageAction dropdown mt-3">
+                                <turbo-frame id="changePriorityFrame">
+                                    <button class="btn dropdown-toggle text-white" 
+                                            type="button" 
+                                            id="changePriorityButton" 
+                                            data-bs-toggle="dropdown" 
+                                            aria-expanded="false"
+                                            style="background-color:{{ task.priority.color }}">
+                                        {{ task.priority.title }}
+                                    </button>
 
-                                <ul class="dropdown-menu" 
-                                    aria-labelledby="changePriorityButton">
-                                        {% for priority in priorities %}
-                                            <li><a
-                                                {{ stimulus_action('task_action', 'updatePriority') }}
-                                                class="dropdown-item" style="color:{{ priority.color }}" data-action-task-id="{{ task.id }}" data-action-priority-id="{{ priority.id }}">{{ priority.title }}</a></li>
-                                        {% endfor %}
-                                </ul>
-                            </turbo-frame>
-                        </div>
+                                    <ul class="dropdown-menu" 
+                                        aria-labelledby="changePriorityButton">
+                                            {% for priority in priorities %}
+                                                <li><a
+                                                    {{ stimulus_action('task_action', 'updatePriority') }}
+                                                    class="dropdown-item" style="color:{{ priority.color }}" data-action-task-id="{{ task.id }}" data-action-priority-id="{{ priority.id }}">{{ priority.title }}</a></li>
+                                            {% endfor %}
+                                    </ul>
+                                </turbo-frame>
+                            </div>
+                        {% endif %}
                         <div {{ stimulus_target('task_action', 'taskAction') }} id="changeState" class="inpageAction dropdown mt-3">
                             <turbo-frame id="changeStateFrame">
-                                <button class="btn dropdown-toggle text-white" 
-                                        type="button" 
-                                        id="changeStateButton" 
-                                        data-bs-toggle="dropdown" 
+                                <button class="btn {% if not task.state.isClosingState %}dropdown-toggle{% endif %} text-white" 
+                                        type="button"
+                                        id="changeStateButton"
+                                        data-bs-toggle="dropdown"
                                         aria-expanded="false"
+                                        {% if task.state.isClosingState %}disabled{% endif %}
                                         style="background-color:{{ task.state.color }}">
                                     {{ task.state.title }}
                                 </button>
 
-                                <ul class="dropdown-menu" 
-                                    aria-labelledby="changeStateButton">
-                                        {% for state in states %}
-                                            <li><a {{ stimulus_action('task_action', 'updateState') }}
-                                                class="dropdown-item" href="#" style="color:{{ state.color }}" data-action-task-id="{{ task.id }}" data-action-state-id="{{ state.id }}">{{ state.title }}</a></li>
-                                        {% endfor %}
-                                </ul>
+                                {% if not task.state.isClosingState %}
+                                    <ul class="dropdown-menu" 
+                                        aria-labelledby="changeStateButton">
+                                            {% for state in states %}
+                                                <li><a {{ stimulus_action('task_action', 'updateState') }}
+                                                    class="dropdown-item" href="#" style="color:{{ state.color }}" data-action-task-id="{{ task.id }}" data-action-state-id="{{ state.id }}">{{ state.title }}</a></li>
+                                            {% endfor %}
+                                    </ul>
+                                {% endif %}
                             </turbo-frame>
                         </div>
                     </div>

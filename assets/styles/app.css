@@ -137,3 +137,11 @@ body {
 /* ***************** */
 /* FIN Page Task */
 /* ***************** */
+
+.form-switch {
+    display: flex;
+    padding: 0;
+}
+.form-switch .form-check-input {
+    margin-left: 10px;
+}

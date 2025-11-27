@@ -23,13 +23,18 @@
 
 {# Vous pouvez aussi vouloir surcharger le bloc de rendu d'une checkbox individuelle #}
 {% block checkbox_widget %}
-    {% set label_attr = label_attr|merge({'class': 'btn btn-outline-success'}) %}
+    {% if attr.role is defined and attr.role == 'switch' %}
+        <label for="{{ id }}" class="{{ label_attr.class|default('') }}">{{ label|trans }}</label>
+        <input type="checkbox" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}{% if checked %}checked="checked"{% endif %} />
+    {% else %}
+        {% set label_attr = label_attr|merge({'class': 'btn btn-outline-success'}) %}
 
-    <input type="checkbox" id="{{ id }}" name="{{ full_name }}" value="{{ value }}" 
-        {% if checked %}checked="checked"{% endif %}
-        {{ block('widget_attributes') }} 
-        class="d-none" />
-    <label for="{{ id }}" class="{{ label_attr.class|default('') }}">{{ label|trans }}</label>
+        <input type="checkbox" id="{{ id }}" name="{{ full_name }}" value="{{ value }}" 
+            {% if checked %}checked="checked"{% endif %}
+            {{ block('widget_attributes') }} 
+            class="d-none" />
+        <label for="{{ id }}" class="{{ label_attr.class|default('') }}">{{ label|trans }}</label>
+    {% endif %}
 {% endblock %}
 
 {% block form_label %}

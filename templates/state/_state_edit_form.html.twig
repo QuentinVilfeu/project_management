@@ -17,6 +17,7 @@
         {{ form_widget(form.weight, {'attr': {'class': 'form-control'}}) }}
         {{ form_errors(form.weight) }}
     </div>
+    {{ form_row(form.isClosingState) }}
 
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary">{% trans %}Edit state{% endtrans %}</button>

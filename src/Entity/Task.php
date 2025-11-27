@@ -21,16 +21,16 @@ class Task
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotNull(message: 'Title should not be null', groups: ['Default', 'edit'])]
+    #[Assert\NotNull(message: 'Title should not be null', groups: ['Default', 'edit', 'closed'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotNull(message: 'Description should not be null', groups: ['Default', 'edit'])]
+    #[Assert\NotNull(message: 'Description should not be null', groups: ['Default', 'edit', 'closed'])]
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Assert\NotNull(message: 'Project should not be null', groups: ['Default', 'edit'])]
+    #[Assert\NotNull(message: 'Project should not be null', groups: ['Default', 'edit', 'closed'])]
     private ?Project $project = null;
 
     /**
@@ -41,11 +41,11 @@ class Task
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Assert\NotNull(message: 'State should not be null', groups: ['Default', 'edit'])]
+    #[Assert\NotNull(message: 'State should not be null', groups: ['Default', 'edit', 'closed'])]
     private ?State $state = null;
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     #[Assert\NotNull(message: 'Priority should not be null', groups: ['Default', 'edit'])]
     private ?Priority $priority = null;
 

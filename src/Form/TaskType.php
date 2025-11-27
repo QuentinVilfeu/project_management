@@ -40,24 +40,28 @@ class TaskType extends AbstractType
                 'choice_label' => 'title',
                 'placeholder' => $this->translator->trans('-- Select a project --')
             ])
-            ->add('state', EntityType::class, [
-                'label' => $this->translator->trans('State'),
-                'class' => State::class,
-                'choice_label' => 'title',
-            ])
-            ->add('priority', EntityType::class, [
-                'label' => $this->translator->trans('Priority'),
-                'class' => Priority::class,
-                'choice_label' => 'title',
-            ])
             ->add('assignee', EntityType::class, [
                 'required' => false,
                 'label' => $this->translator->trans('Assignee'),
                 'class' => User::class,
                 'choice_label' => 'email',
                 'placeholder' => $this->translator->trans('-- Select a user --')
-            ])
-        ;
+            ]);
+        
+        if ($options['action'] == 'new'
+            || ($options['action'] == 'edit' && ! $options['task']->getState()->getIsClosingState())) {
+            $builder
+                ->add('state', EntityType::class, [
+                    'label' => $this->translator->trans('State'),
+                    'class' => State::class,
+                    'choice_label' => 'title',
+                ])
+                ->add('priority', EntityType::class, [
+                    'label' => $this->translator->trans('Priority'),
+                    'class' => Priority::class,
+                    'choice_label' => 'title',
+                ]);
+        }
 
         if ($options['action'] !== 'new') {
             return;
@@ -74,10 +78,15 @@ class TaskType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Task::class,
             'action' => 'new',
+            'task' => null,
             'validation_groups' => function ($form) {
                 $data = $form->getData();
                 // Si c'est une édition (l'entité a un ID), on utilise le groupe 'edit'
                 if ($data && $data->getId()) {
+                    if ($data->getState()->getIsClosingState()) {
+                        return ['closed'];
+                    }
+
                     return ['edit'];
                 }
                 // Sinon, on utilise le groupe 'Default'

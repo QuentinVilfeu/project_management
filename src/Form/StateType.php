@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\State;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,6 +32,17 @@ class StateType extends AbstractType
             ->add('weight', IntegerType::class, [
                 'label' => $this->translator->trans('Weight'),
                 'attr' => ['class' => 'form-control', 'placeholder' => $this->translator->trans('Weight')],
+            ])
+            ->add('isClosingState', CheckboxType::class, [
+                'required' => false,
+                'label' => $this->translator->trans('Choose as closing state ?'),
+                'attr' => [
+                    'class' => 'form-check-input',
+                    'role' => 'switch',
+                ],
+                'row_attr' => [
+                    'class' => 'form-check form-switch mb-3',
+                ],
             ])
         ;
     }
