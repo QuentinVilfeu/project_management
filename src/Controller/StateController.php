@@ -76,7 +76,7 @@ final class StateController extends AbstractController
 
         // Process form submission
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->stateService->removeAllClosingStateBool();
+            $this->stateService->removeAllClosingStateBool($state);
             // Save the State
             $this->em->persist($state);
             $this->em->flush();

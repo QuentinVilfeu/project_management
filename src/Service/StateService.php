@@ -22,9 +22,13 @@ class StateService
         return $state;
     }
 
-    public function removeAllClosingStateBool() {
+    public function removeAllClosingStateBool(?State $currentState = null) {
         $states = $this->entityManager->getRepository(State::class)->findBy(['isClosingState' => true]);
         foreach ($states as $state) {
+            if ($currentState && $currentState->getId() === $state->getId()) {
+                continue;
+            }
+
             $state->setIsClosingState(false);
             $this->entityManager->persist($state);
         }
