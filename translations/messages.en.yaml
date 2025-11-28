@@ -57,7 +57,7 @@ States: States
 Priorities: Priorities
 Add Priority: Add Priority
 Create Priority: Create Priority
-Edit Priority : Edit Priority
+Edit priority : Edit priority
 Delete Priority : Delete Priority
 priority.added: 'Priority "%title%" has been added.'
 priority.edited: 'Priority "%title%" has been updated.'
@@ -83,6 +83,7 @@ task.deleted: 'Task "%title%" has been deleted.'
 task.closed: 'Task "%title%" has been closed.'
 Assigned to : Assigned to
 Comments: Comments
+Comment: Comment
 task.commented: 'Task "%title%" has received a new comment.'
 Write your comment here ...: Write your comment here ...
 Publish: Publish
@@ -95,5 +96,11 @@ Confirm comment deletion: Confirm comment deletion
 comment.deleted: 'Comment has been deleted'
 The end date cannot be in the past: The end date cannot be in the past
 Tasks related: Tasks related
+Related tasks: Related tasks
+Update related tasks: Update related tasks
+Add task (# to search): Add task (# to search)
+Selected tasks: Selected tasks
+Save: Save
+Enter "#" followed by task title: Enter "#" followed by task title
 '-- Select a project --': '-- Select a project --'
 '-- Select a user --': '-- Select a user --'

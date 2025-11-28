@@ -2,18 +2,14 @@ import { Controller } from "@hotwired/stimulus";
 import { renderStreamMessage } from "@hotwired/turbo";
 import speRouting from "../js/utils/routing";
 
-export default class extends Controller<HTMLElement> {
-    static targets = ["modal", "openModalButton"];
+export default class ModalController extends Controller<HTMLElement> {
+    static readonly targets = ["modal", "openModalButton"];
 
     declare readonly openModalButtonTargets: HTMLButtonElement[];
 
-    connect() {
-        // console.log("Modal controller connected");
-    }
-
     async startAction(button: HTMLButtonElement) {
-        const route = button.getAttribute("data-route");
-        const parameters = button.getAttribute("data-parameters");
+        const route = button.dataset.route;
+        const parameters = button.dataset.parameters
 
         if (route) {
             await this.fetchController(route, parameters ? JSON.parse(parameters) : {});

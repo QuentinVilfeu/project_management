@@ -10,8 +10,11 @@ export const app = startStimulusApp(require.context(
 
 StreamActions.visit = function () {
     const location = this.getAttribute("target");
+    const url = this.getAttribute("url");
     if (location) {
-        const url = speRouting.generate(location);
+        const generatedUrl = speRouting.generate(location);
+        window.location.href = generatedUrl;
+    } else if (url) {
         window.location.href = url;
     }
 };

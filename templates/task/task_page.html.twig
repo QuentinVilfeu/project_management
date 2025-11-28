@@ -111,13 +111,13 @@
                     <div class="d-flex justify-content-center align-items-center">
                         {% if task.closingDate %}
                             <p class="mt-3 mb-0 pe-3"><span class="fw-bold">{% trans %}Task closed on{% endtrans %} :</span> {{ task.closingDate|date('d-m-Y') }}</p>
-                            <a id="close_task_{{ task.id }}"
+                            <a id="reopen_task_{{ task.id }}"
                                 class="btn btn-sm btn-outline-primary mt-3"
-                                title="{{ 'Close task'|trans }}"
+                                title="{{ 'Reopen task'|trans }}"
                                 {{ stimulus_action('modal', 'clickActionTable') }}
                                 data-bs-toggle="modal"
-                                data-bs-target="#closeTaskModal"
-                                data-route="app_task_close"
+                                data-bs-target="#reopenTaskModal"
+                                data-route="app_task_reopen"
                                 data-parameters="{{ {'id': task.id}|json_encode|e('html_attr') }}">
                                     {% trans %}Reopen task{% endtrans %}
                             </a>
@@ -242,7 +242,7 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTaksRelated" aria-controls="collapseTaksRelated">
-                                        {% trans %}Update tasks related{% endtrans %}
+                                        {% trans %}Update related tasks{% endtrans %}
                                     </button>
                                 </h2>
                                 <div id="collapseTaksRelated" class="accordion-collapse collapse" data-bs-parent="#accordionTaskRelated">
@@ -282,6 +282,7 @@
     {% include "task/_modal.html.twig" %}
     {% include "task/_modal_edit.html.twig" %}
     {% include "task/_modal_close.html.twig" %}
+    {% include "task/_modal_reopen.html.twig" %}
     {% include "task/_modal_comment.html.twig" %}
     {% include "task/_modal_delete.html.twig" %}
     {% include "comment/_modal_edit.html.twig" %}

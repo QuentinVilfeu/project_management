@@ -7,6 +7,8 @@ use App\Entity\Project;
 use App\Entity\State;
 use App\Entity\Task;
 use App\Entity\User;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -55,11 +57,19 @@ class TaskType extends AbstractType
                     'label' => $this->translator->trans('State'),
                     'class' => State::class,
                     'choice_label' => 'title',
+                    'query_builder' => function (EntityRepository $er): QueryBuilder {
+                        return $er->createQueryBuilder('s')
+                            ->orderBy('s.weight', 'ASC');
+                    },
                 ])
                 ->add('priority', EntityType::class, [
                     'label' => $this->translator->trans('Priority'),
                     'class' => Priority::class,
                     'choice_label' => 'title',
+                    'query_builder' => function (EntityRepository $er): QueryBuilder {
+                        return $er->createQueryBuilder('p')
+                            ->orderBy('p.weight', 'ASC');
+                    },
                 ]);
         }
 

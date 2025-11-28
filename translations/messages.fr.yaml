@@ -51,7 +51,7 @@ States: États
 Priorities: Priorités
 Add priority: Ajouter une priorité
 Create Priority: Créer une priorité
-Edit Priority : Éditer la priorité
+Edit priority : Éditer la priorité
 Delete Priority : Supprimer la priorité
 Delete priority : Supprimer la priorité
 priority.added: 'Priorité "%title%" a été ajouté.'
@@ -79,6 +79,7 @@ task.closed: 'La tâche "%title%" a été fermée.'
 Assigned to : Assigné à
 Edit: Modifier
 Comments: Commentaires
+Comment: Commentaire
 task.commented: 'La tâche "%title%" a reçu un nouveau commentaire.'
 Write your comment here ...: Ecrivez votre commentaire ici ...
 Publish: Publier
@@ -91,5 +92,11 @@ Confirm comment deletion: Confirmer la suppression du commentaire
 comment.deleted: 'Le commentaire a été supprimé'
 The end date cannot be in the past: La date de fin ne peut pas être dans le passé
 Tasks related: Tâches liées
+Related tasks: Tâches liées
+Update related tasks: Modifier les tâches liées
+Add task (# to search): Ajouter une tâche (# pour chercher)
+Selected tasks: Tâches sélectionnées
+Save: Enregistrer
+Enter "#" followed by task title: Entrer "#" suivi du titre de la tâche
 '-- Select a project --': '-- Sélectionner un projet --'
 '-- Select a user --': '-- Sélectionner un utilisateur --'

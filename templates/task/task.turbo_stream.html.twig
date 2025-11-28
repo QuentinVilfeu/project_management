@@ -23,6 +23,14 @@
 		</turbo-stream>
 	{% endif %}
 
+	{% if action == "actionReopen" %}
+		<turbo-stream action="update" target="reopenTaskModalFrame">
+			<template>
+				{% include 'task/_task_reopen_form.html.twig' with {form: form} %}
+			</template>
+		</turbo-stream>
+	{% endif %}
+
 	{% if action == "actionComment" %}
 		<turbo-stream action="update" target="commentTaskModalFrame">
 			<template>

@@ -1,0 +1,24 @@
+{% form_theme form 'form/custom_errors.html.twig' %}
+
+{{ form_start(form, {'action': path('app_task_reopen', {id: task.id})}) }}
+    {{ form_widget(form._token) }}
+
+    <div class="d-flex justify-content-between">
+        <div class="mb-3 col-6 pe-2">
+            {{ form_label(form.state) }}
+            {{ form_widget(form.state, {'attr': {'class': 'form-select'}}) }}
+            {{ form_errors(form.state) }}
+        </div>
+        <div class="mb-3 col-6 ps-2">
+            {{ form_label(form.priority) }}
+            {{ form_widget(form.priority, {'attr': {'class': 'form-select'}}) }}
+            {{ form_errors(form.priority) }}
+        </div>
+    </div>
+    {{ form_widget(form.newComment) }}
+    {{ form_errors(form.newComment) }}
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">{% trans %}Reopen task{% endtrans %}</button>
+    </div>
+{{ form_end(form, {render_rest: false}) }}

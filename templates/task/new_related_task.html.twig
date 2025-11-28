@@ -5,7 +5,7 @@
 			<label for="related-tasks-input">{% trans %}Add task (# to search){% endtrans %}
 				:</label>
 			<input
-			type="text" id="related-tasks-input" class="form-control" placeholder="{{ 'Enter # followed by task name'|trans }}" data-task-target="input" data-action="input->task#search">
+			type="text" id="related-tasks-input" class="form-control" placeholder="{{ 'Enter "#" followed by task title'|trans }}" data-task-target="input" data-action="input->task#search">
 
 			{# Ce champ caché va contenir les IDs des tâches sélectionnées (la valeur réelle soumise) #}
 			<input type="hidden" name="related_task_ids" id="related-task-ids-hidden" value="{% for relatedTask in task.taskRelated %}{{ relatedTask.id }}{% if not loop.last %},{% endif %}{% endfor %}" data-task-target="hiddenInput">

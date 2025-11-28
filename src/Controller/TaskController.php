@@ -9,6 +9,7 @@ use App\Entity\Task;
 use App\Entity\User;
 use App\Form\CommentType;
 use App\Form\TaskCloseType;
+use App\Form\TaskReopenType;
 use App\Form\TaskType;
 use App\Repository\TaskRepository;
 use App\Service\Utils;
@@ -181,14 +182,48 @@ final class TaskController extends AbstractController
             $this->em->persist($task);
             $this->em->flush();
 
-            $this->addFlash('success', $this->translator->trans('task.closed', ['%title%' => $task->getTitle()]));
-            // Return a Turbo Stream response to update the task list
-            return $this->utils->turboStreamResponse('app_task', true);
+            return $this->utils->turboStreamRedirect($this->generateUrl('app_task_page', ['id' => $task->getId()]));
         }
 
         // Render the form in a Turbo Stream response
         $stream = $this->renderView('task/task.turbo_stream.html.twig', [
             "action" => "actionClose",
+            "task" => $task,
+            "form" => $form
+        ]);
+
+        return $this->utils->turboStreamResponse($stream);
+    }
+
+    #[Route('/{id}/reopen', name: 'app_task_reopen', methods: ['GET', 'POST'], options: ['expose' => true], requirements: ['id' => '\d+'])]
+    public function reopen(Request $request, Task $task): Response
+    {
+        // Create the Form
+        $form = $this->createForm(TaskReopenType::class, $task);
+        $form->handleRequest($request);
+
+        // Process form submission
+        if ($form->isSubmitted() && $form->isValid()) {
+            $commentData = $form->get('newComment')->getData();
+            $comment = new Comment();
+            
+            $formatComment = "Réouverture Tâche : \n " . $commentData->getContent();
+
+            $comment->setContent($formatComment);
+            $comment->setTask($task);
+            $task->addComment($comment);
+            $task->setClosingDate(null);
+            // Save the Task
+            $this->em->persist($comment);
+            $this->em->persist($task);
+            $this->em->flush();
+
+            return $this->utils->turboStreamRedirect($this->generateUrl('app_task_page', ['id' => $task->getId()]));
+        }
+
+        // Render the form in a Turbo Stream response
+        $stream = $this->renderView('task/task.turbo_stream.html.twig', [
+            "action" => "actionReopen",
             "task" => $task,
             "form" => $form
         ]);

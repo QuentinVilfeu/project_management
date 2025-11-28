@@ -41,12 +41,12 @@ class Task
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Assert\NotNull(message: 'State should not be null', groups: ['Default', 'edit', 'closed'])]
+    #[Assert\NotNull(message: 'State should not be null', groups: ['Default', 'edit', 'closed', 'reopen'])]
     private ?State $state = null;
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
     #[ORM\JoinColumn(nullable: true)]
-    #[Assert\NotNull(message: 'Priority should not be null', groups: ['Default', 'edit'])]
+    #[Assert\NotNull(message: 'Priority should not be null', groups: ['Default', 'edit', 'reopen'])]
     private ?Priority $priority = null;
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
